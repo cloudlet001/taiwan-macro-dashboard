@@ -1,0 +1,1130 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>全球總體經濟指標觀測站 (美/台) & F6194 服務專區</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --card-bg: #1e293b;
+      --border: #334155;
+      --text: #f8fafc;
+      --muted: #94a3b8;
+      --accent: #38bdf8;
+      --accent-hover: #0ea5e9;
+      --code-bg: #090d16;
+      --tag-bg: #1e3a5f;
+      --gold: #f59e0b;
+      --green: #10b981;
+      --red: #ef4444;
+    }
+    body {
+      margin: 0;
+      padding: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      line-height: 1.5;
+    }
+    header {
+      background: linear-gradient(135deg, #1e293b, #0f172a);
+      border-bottom: 1px solid var(--border);
+      padding: 28px 20px 20px;
+      text-align: center;
+    }
+    .header-badge {
+      display: inline-block;
+      background: var(--tag-bg);
+      color: var(--accent);
+      padding: 3px 12px;
+      border-radius: 9999px;
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 10px;
+      border: 1px solid #0284c7;
+    }
+    h1 { margin: 0 0 8px 0; font-size: 25px; }
+    p.sub { margin: 0; color: var(--muted); font-size: 14.5px; }
+
+    /* 頂部三大頁籤 Tabs */
+    .tabs-wrapper {
+      background: #131d31;
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    }
+    .tabs-container {
+      max-width: 1080px;
+      margin: 0 auto;
+      display: flex;
+      padding: 0 15px;
+      gap: 10px;
+      overflow-x: auto;
+    }
+    .tab-btn {
+      padding: 14px 20px;
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--muted);
+      background: transparent;
+      border: none;
+      border-bottom: 3px solid transparent;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      white-space: nowrap;
+      transition: all 0.2s;
+    }
+    .tab-btn:hover {
+      color: #fff;
+    }
+    .tab-btn.active {
+      color: var(--accent);
+      border-bottom-color: var(--accent);
+      background: rgba(56, 189, 248, 0.05);
+    }
+
+    .container { max-width: 1080px; margin: 0 auto; padding: 25px 20px 80px; }
+    .tab-pane { display: none; }
+    .tab-pane.active { display: block; }
+
+    /* 搜尋與過濾 */
+    .search-box {
+      margin-bottom: 25px;
+      display: flex;
+      gap: 10px;
+    }
+    .search-input {
+      flex: 1;
+      padding: 12px 18px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: var(--card-bg);
+      color: var(--text);
+      font-size: 15px;
+      outline: none;
+    }
+    .search-input:focus { border-color: var(--accent); }
+    .section-title {
+      font-size: 20px;
+      margin: 30px 0 15px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--accent);
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
+      gap: 15px;
+    }
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 18px;
+      transition: all 0.2s;
+    }
+    .card:hover { border-color: var(--accent); transform: translateY(-2px); }
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 8px;
+    }
+    .card-title { font-weight: 700; font-size: 17px; color: #fff; }
+    .card-badge {
+      font-size: 12px;
+      padding: 2px 8px;
+      border-radius: 99px;
+      background: #0369a1;
+      color: #e0f2fe;
+    }
+    .card-badge.gold { background: #b45309; color: #fef3c7; }
+    .card-badge.green { background: #047857; color: #d1fae5; }
+    .card-badge.red { background: #b91c1c; color: #fee2e2; }
+    .card-desc { font-size: 13.5px; color: var(--muted); margin-bottom: 12px; line-height: 1.5; }
+    .card-link {
+      display: inline-block;
+      text-decoration: none;
+      background: #0284c7;
+      color: #fff;
+      font-size: 13px;
+      padding: 6px 14px;
+      border-radius: 6px;
+      transition: background 0.2s;
+    }
+    .card-link:hover { background: var(--accent-hover); }
+
+    /* 表格樣式 & 機關超連結 */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 15px;
+      background: var(--card-bg);
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+    th, td { padding: 12px 14px; text-align: left; font-size: 13.5px; border-bottom: 1px solid var(--border); }
+    th { background: #172033; color: var(--accent); }
+    tr:last-child td { border-bottom: none; }
+
+    .org-link {
+      color: #38bdf8;
+      text-decoration: none;
+      font-weight: 600;
+      padding: 4px 8px;
+      border-radius: 4px;
+      background: rgba(56, 189, 248, 0.1);
+      border: 1px solid rgba(56, 189, 248, 0.25);
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+    }
+    .org-link:hover {
+      background: #0284c7;
+      color: #ffffff;
+      border-color: #38bdf8;
+      text-decoration: none;
+    }
+
+    /* 戰術看盤區塊 (Tactical Box) */
+    .tactical-box {
+      background: linear-gradient(135deg, #1e293b, #111827);
+      border: 1px solid #38bdf8;
+      border-radius: 12px;
+      padding: 20px;
+      margin-top: 25px;
+      box-shadow: 0 4px 20px rgba(56, 189, 248, 0.1);
+    }
+    .tactical-box h3 {
+      margin-top: 0;
+      color: #38bdf8;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 18px;
+    }
+    .tactical-steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 15px;
+      margin-top: 15px;
+    }
+    .step-card {
+      background: rgba(15, 23, 42, 0.8);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 14px 16px;
+    }
+    .step-tag {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 5px;
+    }
+    .step-title { font-weight: 600; font-size: 15px; color: #fff; margin-bottom: 6px; }
+    .step-desc { font-size: 13px; color: var(--muted); margin: 0; }
+
+    /* F6194 章節與提示詞樣式 */
+    .f6194-nav-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 25px;
+      background: var(--card-bg);
+      padding: 16px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+    }
+    .f6194-nav-btn {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 13.5px;
+      padding: 6px 12px;
+      border-radius: 6px;
+      background: #0f172a;
+      border: 1px solid var(--border);
+      transition: all 0.2s;
+    }
+    .f6194-nav-btn:hover {
+      color: #fff;
+      border-color: var(--accent);
+      background: #1e293b;
+    }
+    .resource-box {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 30px;
+    }
+    .resource-box h3 { margin-top: 0; color: var(--accent); font-size: 18px; }
+    .resource-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 12px;
+    }
+    .resource-card {
+      background: #0f172a;
+      padding: 12px 16px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      text-decoration: none;
+      color: var(--text);
+      display: block;
+      transition: all 0.2s;
+    }
+    .resource-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+    .resource-title { font-weight: 600; color: var(--accent); font-size: 14px; margin-bottom: 4px; }
+    .resource-desc { font-size: 12px; color: var(--muted); }
+
+    .chapter-section {
+      margin-bottom: 35px;
+      background: var(--card-bg);
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      overflow: hidden;
+    }
+    .chapter-header {
+      padding: 16px 20px;
+      background: #172033;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .chapter-title { margin: 0; font-size: 18px; font-weight: 600; }
+    .chapter-content { padding: 20px; }
+    .prompt-block {
+      margin-bottom: 22px;
+      background: #111827;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .prompt-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px 14px;
+      background: #1c273c;
+      border-bottom: 1px solid var(--border);
+      font-size: 13px;
+      font-weight: 600;
+      color: #93c5fd;
+    }
+    .copy-btn {
+      background: #0284c7;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      padding: 4px 10px;
+      font-size: 12px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .copy-btn:hover { background: #0369a1; }
+    pre {
+      margin: 0;
+      padding: 14px;
+      background: var(--code-bg);
+      color: #e2e8f0;
+      font-family: Consolas, Monaco, "Courier New", monospace;
+      font-size: 13.5px;
+      line-height: 1.6;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+    html {
+      scroll-behavior: smooth;
+    }
+    footer {
+      text-align: center;
+      padding: 30px;
+      color: var(--muted);
+      font-size: 13px;
+      border-top: 1px solid var(--border);
+    }
+
+    /* 回到頂部懸浮按鈕 */
+    .back-to-top {
+      position: fixed;
+      bottom: 28px;
+      right: 28px;
+      background: linear-gradient(135deg, #0284c7, #0369a1);
+      color: #fff;
+      border: 1px solid rgba(56, 189, 248, 0.4);
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+      transition: all 0.25s ease;
+      opacity: 0;
+      visibility: hidden;
+      z-index: 999;
+    }
+    .back-to-top.show {
+      opacity: 1;
+      visibility: visible;
+    }
+    .back-to-top:hover {
+      background: linear-gradient(135deg, #38bdf8, #0284c7);
+      transform: translateY(-4px) scale(1.05);
+      box-shadow: 0 6px 20px rgba(56, 189, 248, 0.4);
+    }
+    .back-to-top svg {
+      width: 18px;
+      height: 18px;
+      stroke-width: 2.5;
+    }
+    .back-to-top-text {
+      font-size: 9px;
+      font-weight: 700;
+      margin-top: 1px;
+      letter-spacing: 0.5px;
+    }
+
+    /* 各章節標題旁的「回到頂端」快速按鈕 */
+    .chapter-top-link {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 12px;
+      font-weight: normal;
+      padding: 3px 8px;
+      border-radius: 4px;
+      background: #0f172a;
+      border: 1px solid var(--border);
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      transition: all 0.2s;
+    }
+    .chapter-top-link:hover {
+      color: var(--accent);
+      border-color: var(--accent);
+      background: #1e293b;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="header-badge">全球總體經濟 (美/台) & AI 投資全攻略</div>
+  <h1>🌐 全球總體經濟指標觀測站</h1>
+  <p class="sub">整合美國核心總經、FOMC、美股財報週、三大市場情緒指標、台灣總經及旗標 F6194 提示詞庫</p>
+</header>
+
+<!-- 頁籤導覽列 (Tabs) -->
+<div class="tabs-wrapper">
+  <div class="tabs-container">
+    <button class="tab-btn active" onclick="switchTab('us-macro', this)">
+      <span>🇺🇸</span> 美國總經指標與市場情緒
+    </button>
+    <button class="tab-btn" onclick="switchTab('tw-macro', this)">
+      <span>🇹🇼</span> 台灣總經指標觀測站
+    </button>
+    <button class="tab-btn" onclick="switchTab('f6194', this)">
+      <span>📚</span> F6194 服務專區 (全書提示詞庫)
+    </button>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- ================= 頁籤 1: 美國總經與市場情緒 ================= -->
+  <div id="pane-us-macro" class="tab-pane active">
+    
+    <h2 class="section-title">🗓️ 美國總經數據、利率會議與美股財報完整發布時程表（無刪減版）</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>順序</th>
+          <th>經濟指標 / 會議 / 財報名稱</th>
+          <th>典型公布時間 (美東 ET)</th>
+          <th>順序邏輯與市場焦點</th>
+          <th>官方數據連結</th>
+          <th>數據發布實例 (以 2026 年 10 月為例)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>1</strong></td>
+          <td><strong>ISM 製造業 PMI</strong></td>
+          <td>每月第一個工作日 10:00 AM</td>
+          <td><strong>景氣領先指標</strong>。最早開牌，直接反映企業採購經理人對製造業最新看法。</td>
+          <td><a href="https://www.ismworld.org/supply-management-news-and-reports/reports/ism-pmi-reports/manufacturing/" target="_blank" class="org-link">ISM PMI ↗</a></td>
+          <td>10 月 1 日 (週四) 率先揭曉 9 月製造業動能。</td>
+        </tr>
+        <tr>
+          <td><strong>2</strong></td>
+          <td><strong>ISM 非製造業 PMI</strong></td>
+          <td>每月第三個工作日 10:00 AM</td>
+          <td><strong>服務業動能</strong>。美國內需經濟支柱，評估內需強韌度。</td>
+          <td><a href="https://www.ismworld.org/supply-management-news-and-reports/reports/ism-pmi-reports/services/" target="_blank" class="org-link">ISM Services ↗</a></td>
+          <td>10 月 5 日 (週一) 揭曉 9 月服務業景氣（因應假日調整）。</td>
+        </tr>
+        <tr>
+          <td><strong>3</strong></td>
+          <td><strong>ADP 小非農</strong></td>
+          <td>非農週的週三 08:30 AM</td>
+          <td><strong>就業市場前瞻</strong>。民間機構發布，用來推估官方就業報告的風向。</td>
+          <td><a href="https://adpemploymentreport.com/" target="_blank" class="org-link">ADP Report ↗</a></td>
+          <td>10 月 7 日 (週三) 新增 9.0 萬人。</td>
+        </tr>
+        <tr>
+          <td><strong>4</strong></td>
+          <td><strong>非農就業數據 (NFP)</strong></td>
+          <td>每月第一個週五 08:30 AM</td>
+          <td><strong>官方就業核心</strong>。含新增就業與失業率，牽動聯準會政策走向。</td>
+          <td><a href="https://www.bls.gov/news.release/empsit.nr0.htm" target="_blank" class="org-link">BLS 就業局 ↗</a></td>
+          <td>10 月 9 日 (週五) 超級重頭戲開牌，就業顯著降溫（僅增 2.9 萬人）。</td>
+        </tr>
+        <tr>
+          <td><span class="card-badge gold">📊</span></td>
+          <td><strong>美股財報週（金融開跑）</strong></td>
+          <td>每季結束後次月月中 (約10-15號起)</td>
+          <td><strong>企業基本面轉折</strong>。大型金融股（JPM、WFC 等）率先開牌，揭開當季美股 EPS 與展望序幕。</td>
+          <td><a href="https://www.nasdaq.com/market-activity/earnings" target="_blank" class="org-link">Nasdaq 財報日曆 ↗</a></td>
+          <td>10 月 13 日起當週 (週二起) 摩根大通、富國銀行等華爾街巨頭陸續公布 Q3 財報。</td>
+        </tr>
+        <tr>
+          <td><strong>5</strong></td>
+          <td><strong>CPI 物價指數</strong></td>
+          <td>每月 10 ~ 14 號之間 08:30 AM</td>
+          <td><strong>通膨定價核心</strong>。大眾最感同身受的零售通膨，引發市場巨幅震盪。</td>
+          <td><a href="https://www.bls.gov/cpi/" target="_blank" class="org-link">BLS CPI 專區 ↗</a></td>
+          <td>10 月 14 日 (週三) 本週即將開牌，市場聚焦核心通膨。</td>
+        </tr>
+        <tr>
+          <td><span class="card-badge red">🌐</span></td>
+          <td><strong>聯準會利率會議 (FOMC)</strong></td>
+          <td>一年 8 次（多於週三 14:00）</td>
+          <td><strong>政策終極裁判</strong>。依據前面所有數據（就業、通膨、GDP）決定升降息與縮表。</td>
+          <td><a href="https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm" target="_blank" class="org-link">Fed 聯準會官網 ↗</a></td>
+          <td>10 月 27–28 日舉行，決議於台灣時間 10/29 凌晨 02:00 公布。</td>
+        </tr>
+        <tr>
+          <td><span class="card-badge gold">📊</span></td>
+          <td><strong>美股財報週（科技巨頭 Mag 7）</strong></td>
+          <td>財報週第三至四週 (通常在月底)</td>
+          <td><strong>美股權重定價</strong>。微軟、蘋果、Google 等科技巨頭密集發布財報，主導標普與那指走勢。</td>
+          <td><a href="https://www.investing.com/earnings-calendar/" target="_blank" class="org-link">Investing 財報日曆 ↗</a></td>
+          <td>10 月 28 日 (週三) 盤後預計由微軟 ($MSFT) 等科技巨頭壓軸開牌。</td>
+        </tr>
+        <tr>
+          <td><strong>6</strong></td>
+          <td><strong>GDP 國內生產毛額</strong></td>
+          <td>1、4、7、10 月底 08:30 AM</td>
+          <td><strong>經濟滯後大盤</strong>。季數據，月底公布初值，用來確認整體經濟擴張步伐。</td>
+          <td><a href="https://www.bea.gov/data/gdp/gross-domestic-product" target="_blank" class="org-link">BEA 經濟分析局 ↗</a></td>
+          <td>10 月 29 日 (週四) 將公布 2026 年第 3 季 (Q3) 的 GDP 初值。</td>
+        </tr>
+        <tr>
+          <td><strong>7</strong></td>
+          <td><strong>PCE 物價指數</strong></td>
+          <td>每月下旬（通常是最後一週）08:30 AM</td>
+          <td><strong>聯準會通膨終極目標</strong>。涵蓋範圍最廣，是 Fed 最重視的實質通膨定價依據。</td>
+          <td><a href="https://www.bea.gov/data/income-saving/personal-income" target="_blank" class="org-link">BEA PCE 專區 ↗</a></td>
+          <td>10 月 30 日 (週五) 月底壓軸，為下一場 FOMC 的關鍵參考。</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2 class="section-title">🧮 獨立區塊：市場情緒、風險預測與政策預期指標整合</h2>
+    <p class="sub" style="margin-bottom: 15px;">當總經數據開牌引發市場震盪時，華爾街交易員會利用以下三大即時指標評估資金情緒、隱含波動率與升降息機率，作為戰術應變的溫度計：</p>
+    
+    <div class="grid">
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title">1. CME FedWatch 預測工具</span>
+          <span class="card-badge">政策預期</span>
+        </div>
+        <div class="card-desc">
+          <strong>數據來源與性質：</strong>透過「30天期聯邦基金期貨價格」即時倒推交易員對未來 FOMC 升降息機率的押注。<br>
+          <strong>時間軸邏輯：</strong>每當非農（NFP）或 CPI 公布的瞬間，機率就會劇烈跳動。<br>
+          <strong>最新實例：</strong>因 10/9 非農就業大爆冷門（僅增 2.9 萬人），FedWatch 顯示市場押注 10/28 FOMC 利率會議「按兵不動」機率達 84%。
+        </div>
+        <a href="https://www.cmegroup.com/markets/interest-rates/cme-fedwatch-tool.html" target="_blank" class="card-link">前往 CME FedWatch ↗</a>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title">2. Fear & Greed 恐懼貪婪指數</span>
+          <span class="card-badge gold">市場情緒</span>
+        </div>
+        <div class="card-desc">
+          <strong>數據來源與性質：</strong>由 CNN 綜合美股動能、股價強度、期權交易、避險需求等 7 類指標計算出 0~100 的情緒分數。<br>
+          <strong>解讀邏輯：</strong><br>
+          • <strong>分數 &lt; 30（極度恐懼）：</strong>數據爆雷或財報引發超賣，技術面往往對應左側分批買進的安全邊際訊號。<br>
+          • <strong>分數 &gt; 70（極度貪婪）：</strong>市場亢奮，利多出盡時需提防高檔反轉。
+        </div>
+        <a href="https://edition.cnn.com/markets/fear-and-greed" target="_blank" class="card-link">前往 CNN Fear & Greed ↗</a>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title">3. VIX 波動率指數 (恐慌指數)</span>
+          <span class="card-badge red">風險與權利金</span>
+        </div>
+        <div class="card-desc">
+          <strong>數據來源與性質：</strong>CBOE VIX 反映標普 500 未來 30 天市場預期的隱含波動率。<br>
+          <strong>解讀邏輯：</strong>專門用來度過非農、CPI、FOMC 等重大開牌事件。<br>
+          • <strong>VIX 飆升 (&gt;20~25)：</strong>市場極度不確定，買 Put 避險激增，權利金大幅被推高。<br>
+          • <strong>波動率回歸 (Volatility Crush)：</strong>開牌後不確定性消除，VIX 迅速暴跌，權利金雙殺，市場重返常態趨勢。
+        </div>
+        <a href="https://www.cboe.com/tradable_products/vix/" target="_blank" class="card-link">前往 CBOE VIX 官網 ↗</a>
+      </div>
+    </div>
+
+    <!-- 投資人實戰交叉看盤邏輯 -->
+    <div class="tactical-box">
+      <h3>💡 投資人實戰交叉看盤三部曲 (Tactical Workflow)</h3>
+      <div class="tactical-steps">
+        <div class="step-card">
+          <div class="step-tag">Step A · 日程備戰</div>
+          <div class="step-title">看【時程表】鎖定開牌日</div>
+          <p class="step-desc">提前在週五非農、週三 CPI、FOMC 會議與 Mag 7 財報日前完成部位風險檢視與流動性準備。</p>
+        </div>
+        <div class="step-card">
+          <div class="step-tag">Step B · 即時驗證</div>
+          <div class="step-title">開牌瞬間看【FedWatch】</div>
+          <p class="step-desc">確認新出爐的數據是否撼動華爾街交易員對聯準會年底或下一季的利率決策路徑預期。</p>
+        </div>
+        <div class="step-card">
+          <div class="step-tag">Step C · 戰術決策</div>
+          <div class="step-title">檢視【VIX】與【情緒指數】</div>
+          <p class="step-desc">判斷當前處於「恐慌避險期」還是開牌後的「波動率回歸 (Crush)」，決定保守觀望或逆勢逢低分批佈局。</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ================= 頁籤 2: 台灣總經觀測站 ================= -->
+  <div id="pane-tw-macro" class="tab-pane">
+    <div class="search-box">
+      <input type="text" id="searchInput" class="search-input" placeholder="🔍 輸入關鍵字搜尋台灣總經（例如：通膨、GDP、出口、景氣燈號、央行、利率）...">
+    </div>
+
+    <h2 class="section-title">📅 台灣每月定期追蹤節奏表</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>發布時點</th>
+          <th>觀察焦點</th>
+          <th>發布機關（點擊直達官網）</th>
+          <th>市場核心意義</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>每月 5~7 日</td>
+          <td>GDP / CPI / 失業率 / 經常性薪資</td>
+          <td><a href="https://www.stat.gov.tw/News.aspx?n=2700&sms=10972" target="_blank" class="org-link">主計總處 ↗</a></td>
+          <td>衡量通膨壓力、實質購買力、勞動市場與經濟成長</td>
+        </tr>
+        <tr>
+          <td>每月 7~9 日</td>
+          <td>海關進出口貿易統計</td>
+          <td><a href="https://www.mof.gov.tw/trade" target="_blank" class="org-link">財政部 ↗</a></td>
+          <td>外銷實體出貨成績單（半導體/資通）</td>
+        </tr>
+        <tr>
+          <td>每月 20 日</td>
+          <td>外銷訂單統計</td>
+          <td><a href="https://service.moea.gov.tw/EE521/news/News.aspx" target="_blank" class="org-link">經濟部 ↗</a></td>
+          <td>領先海關出口 1~2 個月的接單預期</td>
+        </tr>
+        <tr>
+          <td>每月 23~24 日</td>
+          <td>工業生產、批發零售</td>
+          <td><a href="https://service.moea.gov.tw/EE521/news/News.aspx" target="_blank" class="org-link">經濟部 ↗</a></td>
+          <td>國內製造動能與民間內需消費</td>
+        </tr>
+        <tr>
+          <td>每月 27 日前後</td>
+          <td>景氣對策信號（燈號）</td>
+          <td><a href="https://index.ndc.gov.tw/n/zh_tw/lightscore#/" target="_blank" class="org-link">國發會 ↗</a></td>
+          <td>綜合判斷景氣階段（綠燈穩定、紅燈過熱）</td>
+        </tr>
+        <tr>
+          <td>每季底 (3/6/9/12月)</td>
+          <td>央行理監事會議利率決策</td>
+          <td><a href="https://www.cbc.gov.tw/" target="_blank" class="org-link">中央銀行 ↗</a></td>
+          <td>貨幣政策基調、政策利率、信用管制</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2 class="section-title">🏛️ 台灣官方權威機構專區</h2>
+    <div class="grid" id="cardGrid">
+      <div class="card" data-tags="主計總處 cpi gdp 經濟成長 物價 通膨 失業率 薪資">
+        <div class="card-header"><span class="card-title">行政院主計總處 (DGBAS)</span><span class="card-badge">GDP / CPI / 薪資 / 就業</span></div>
+        <div class="card-desc">定期發布實質經濟成長率（GDP）預測、每季修正值、每月消費者物價指數（CPI）、失業率與受僱員工經常性薪資統計。</div>
+        <a href="https://www.stat.gov.tw/" target="_blank" class="card-link">前往官網 ↗</a>
+      </div>
+
+      <div class="card" data-tags="國發會 景氣燈號 領先指標 同時指標 景氣對策信號">
+        <div class="card-header"><span class="card-title">國發會 - 景氣循環指標</span><span class="card-badge">景氣燈號</span></div>
+        <div class="card-desc">最受投資人關注的「紅黃藍綠燈」景氣對策信號、領先指標與同時指標綜合指數。</div>
+        <a href="https://index.ndc.gov.tw/n/zh_tw/lightscore#/" target="_blank" class="card-link">前往專區 ↗</a>
+      </div>
+
+      <div class="card" data-tags="央行 中央銀行 利率 重貼現率 m1b m2 貨幣供給 外匯存底">
+        <div class="card-header"><span class="card-title">中華民國中央銀行 (CBC)</span><span class="card-badge">利率 / 貨幣</span></div>
+        <div class="card-desc">發布季度理監事會議利率決議、M1B/M2 貨幣供給成長率、外匯存底與銀行存放款利率。</div>
+        <a href="https://www.cbc.gov.tw/" target="_blank" class="card-link">前往官網 ↗</a>
+      </div>
+
+      <div class="card" data-tags="財政部 出口 進口 海關 電子零組件 資通 貿易">
+        <div class="card-header"><span class="card-title">財政部 - 海關進出口統計</span><span class="card-badge">進出口統計</span></div>
+        <div class="card-desc">每月海關出口總值、進口總值、主要貨品（電子零組件、資通與視聽產品）及地區出口分析。</div>
+        <a href="https://www.mof.gov.tw/trade" target="_blank" class="card-link">前往專區 ↗</a>
+      </div>
+
+      <div class="card" data-tags="經濟部 外銷訂單 工業生產 製造業 零售 餐飲">
+        <div class="card-header"><span class="card-title">經濟部 - 經濟統計分析系統</span><span class="card-badge">外銷訂單</span></div>
+        <div class="card-desc">提供外銷訂單統計（領先出口 1~2 個月）、工業生產指數與批發零售餐飲業營業額。</div>
+        <a href="https://service.moea.gov.tw/EE521/news/News.aspx" target="_blank" class="card-link">前往專區 ↗</a>
+      </div>
+
+      <div class="card" data-tags="macromicro 財經m平方 互動圖表 走勢 回測">
+        <div class="card-header"><span class="card-title">MacroMicro 財經 M平方</span><span class="card-badge">視覺化圖表</span></div>
+        <div class="card-desc">收錄台灣景氣循環圖、央行利率走勢圖、出口年增率與加權指數疊圖對比的互動工具。</div>
+        <a href="https://www.macromicro.me/collections/12/tw-macro-economy" target="_blank" class="card-link">前往專區 ↗</a>
+      </div>
+
+      <div class="card" data-tags="tradingview 技術分析 總經 疊圖 線圖">
+        <div class="card-header"><span class="card-title">TradingView - 台灣經濟數據</span><span class="card-badge">專業圖表</span></div>
+        <div class="card-desc">支援將台灣加權指數與 CPI、政策利率、GDP 等總經數據直接疊在同一張 K 線圖上。</div>
+        <a href="https://tw.tradingview.com/markets/world-economy/countries/taiwan/" target="_blank" class="card-link">前往專區 ↗</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= 頁籤 3: F6194 服務專區 ================= -->
+  <div id="pane-f6194" class="tab-pane">
+    <div class="f6194-nav-bar">
+      <a href="#ch1" class="f6194-nav-btn">第 1 章 AI 投資起點</a>
+      <a href="#ch2" class="f6194-nav-btn">第 2 章 總經與趨勢</a>
+      <a href="#ch3" class="f6194-nav-btn">第 3 章 策略與風險</a>
+      <a href="#ch4" class="f6194-nav-btn">第 4 章 候選股與名單</a>
+      <a href="#ch5" class="f6194-nav-btn">第 5 章 基本面分析</a>
+      <a href="#ch6" class="f6194-nav-btn">第 6 章 最佳買賣點</a>
+      <a href="#ch7" class="f6194-nav-btn">第 7 章 資金與配置</a>
+    </div>
+
+    <div class="resource-box">
+      <h3>🌐 核心線上資源與 Google 試算表範本</h3>
+      <div class="resource-grid">
+        <a href="https://gemini.google.com/" target="_blank" class="resource-card">
+          <div class="resource-title">Gemini 官方網站</div>
+          <div class="resource-desc">Google 旗下最新大語言模型介面</div>
+        </a>
+        <a href="https://notebooklm.google.com/" target="_blank" class="resource-card">
+          <div class="resource-title">NotebookLM 官方網站</div>
+          <div class="resource-desc">個人化 AI 筆記與財報文獻檢索庫</div>
+        </a>
+        <a href="https://docs.google.com/spreadsheets/d/1wTKmoIBu1cGarofTBwntZkt45uUVDBOmvST0_ZX0ZqY/edit?usp=sharing" target="_blank" class="resource-card">
+          <div class="resource-title">第 6 章 Google 試算表 - Watchlist</div>
+          <div class="resource-desc">自選股漲幅動能計算與走勢圖範本</div>
+        </a>
+        <a href="https://docs.google.com/spreadsheets/d/1fiD9l2EaHGwILSI34LynwxgorcxgvhbS9DR8ynzdvEw/edit?gid=367223265#gid=367223265" target="_blank" class="resource-card">
+          <div class="resource-title">第 7 章 Google 試算表 - Portfolio</div>
+          <div class="resource-desc">投組年化標準差、Beta、夏普比率、VaR 估算範本</div>
+        </a>
+        <a href="https://gemini.google.com/share/5c527d26cb6d?skid=358fc019-2f7d-4e5a-9eeb-6efa9fbeb626" target="_blank" class="resource-card">
+          <div class="resource-title">第 2 章 總經互動儀表板</div>
+          <div class="resource-desc">Gemini Canvas 共享總經狀態模擬器</div>
+        </a>
+        <a href="https://gemini.google.com/share/d/1g2lMeMxLuJPql0WdB4JLfozcWpm2sSQh?usp=sharing" target="_blank" class="resource-card">
+          <div class="resource-title">第 7 章 賭局下注模擬器</div>
+          <div class="resource-desc">凱利公式多次賭局資金折線模擬</div>
+        </a>
+      </div>
+    </div>
+
+    <!-- Chapter 1 -->
+    <section class="chapter-section" id="ch1">
+      <div class="chapter-header">
+        <h2 class="chapter-title">第 1 章 AI 時代的投資起點</h2>
+        <a href="javascript:void(0)" onclick="scrollToTop()" class="chapter-top-link">↑ 回到頂部</a>
+      </div>
+      <div class="chapter-content">
+        <div class="prompt-block">
+          <div class="prompt-header"><span>1-9 公開說明書與營運風險分析</span><button class="copy-btn" onclick="copyPrompt(this)">複製提示詞</button></div>
+          <pre>請根據我上傳的公開說明書與法說會資料，用國中生也能理解的方式說明：
+這家公司主要靠什麼產品賺錢、客戶為什麼需要它的產品，
+以及這家公司最重要的三個營運風險。</pre>
+        </div>
+
+        <div class="prompt-block">
+          <div class="prompt-header"><span>1-9 24 小時個股新聞重要性篩選</span><button class="copy-btn" onclick="copyPrompt(this)">複製提示詞</button></div>
+          <pre>請從 24 小時內的新聞中，按重要性順序挑選出五條可能影響台灣個股投資的新聞，並解釋原因。</pre>
+        </div>
+
+        <div class="prompt-block">
+          <div class="prompt-header"><span>1-10 正反觀點論證與反駁</span><button class="copy-btn" onclick="copyPrompt(this)">複製提示詞</button></div>
+          <pre>我認為台積電會繼續發展壯大，請提供證據支持我的觀點。接下來，請提出你的反駁論點，並附上對應的證據。</pre>
+        </div>
+
+        <div class="prompt-block">
+          <div class="prompt-header"><span>1-14 資本支出與營業利益率嚴格檢索（禁止臆測）</span><button class="copy-btn" onclick="copyPrompt(this)">複製提示詞</button></div>
+          <pre>請分析 [股票名稱] 過去三年的資本支出與營業利益率變化。在給出最終答案前，請先進行內部資料庫的嚴格檢索。若你無法找到具體的官方財報數字，請直接回覆「缺乏客觀數據」，絕對禁止基於產業常態進行任何機率推測或填補。</pre>
+        </div>
+
+        <div class="prompt-block">
+          <div class="prompt-header"><span>1-15 自我審查清單</span><button class="copy-btn" onclick="copyPrompt(this)">複製提示詞</button></div>
+          <pre>請針對你上述提供的 [產業或個股分析報告]，在回覆的最末段新增一個 [自我審查清單]。你必須主動盤點剛才生成的論述中，有哪三個數據或獲利假設最容易受到當前總體經濟變數的干擾而失效，並列出我應該去哪份官方文件中進一步核實這些關鍵數字。</pre>
+        </div>
+
+        <div class="prompt-block">
+          <div class="prompt-header"><span>1-16 做空機構邏輯挑錯</span><button class="copy-btn" onclick="copyPrompt(this)">複製提示詞</button></div>
+          <pre>以下是另一份分析系統產出的 [某公司營收成長預估報告內容]。請你扮演一位極度嚴苛且專門做空的機構法人，針對這份報告中的「獲利假設」與「市場滲透率」進行邏輯挑錯。請條列出文中過於樂觀的三個盲點，並提出可能導致其預估完全破滅的市場逆風因素。</pre>
+        </div>
+
+        <div class="prompt-block">
+          <div class="prompt-header"><span>1-16 庫存去化進度逐字稿核實</span><button class="copy-btn" onclick="copyPrompt(this)">複製提示詞</button></div>
+          <pre>根據我上傳的這份 [年度公開說明書與最新法說會逐字稿]，請整理出管理層對於 [下半年庫存去化進度] 的具體承諾與說法。你的每一句結論，都必須精準標註出對應在原始 PDF 檔案中的第幾頁第幾段。若文件中未明確提及該資訊，請明示 「文本無相關資訊」。</pre>
+        </div>
+
+        <div class="prompt-block">
+          <div class="prompt-header"><span>1-18 放空避險基金研究員風險情境</span><button class="copy-btn" onclick="copyPrompt(this)">複製提示詞</button></div>
+          <pre>請扮演一位極度嚴苛且專門放空 [填入產業類別] 的避險基金研究員。請忽略市場上所有的樂觀預期，直接調閱 [填入股票名稱] 過去八季的財務數據，專注尋找應收帳款攀升、存貨周轉率惡化或毛利率衰退的微小跡象，並條列出三個足以讓該公司股價重挫的具體風險情境。</pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- Chapter 2 -->
+    <section class="chapter-section" id="ch2">
+      <div class="chapter-header">
+        <h2 class="chapter-title">第 2 章 總體經濟與產業趨勢</h2>
+        <a href="javascript:void(0)" onclick="scrollToTop()" class="chapter-top-link">↑ 回到頂部</a>
+      </div>
+      <div class="chapter-content">
+        <div class="prompt-block">
+          <div class="prompt-header"><span>2-11 互動式總經儀表板 Prompt</span><button class="copy-btn" onclick="copyPrompt(this)">複製提示詞</button></div>
+          <pre>目標(Objective)：製作一個互動式的總經儀表板，幫助理解 GDP、CPI 和失業率之間的連動關係。
+
+初始狀態(Initial State)：預設為溫和成長狀態（GDP：2.5%、CPI：2.0%、失業率：4.0%）。
+
+版面策略(Layout Strategy)：畫面上半部為控制面板，下半部為即時更新的分析結果面板。
+
+輸入元件(Input Controls)：包含 GDP、CPI、失業率三個滑桿，以及歷史情境快速按鈕（包含 90 年代金髮女孩、2022 年過熱、2008 年金融海嘯、70 年代停滯性通膨、2020 疫情封城）。
+
+連動行為(Behavior)：操作滑桿或按鈕時，下方即時顯示對應的「經濟狀態」（如擴張、衰退、過熱等），並附上一句簡單的央行政策預測。</pre>
+        </div>
+
+        <div class="prompt-block">
+          <div class="prompt-header"><span>2-25 國發會景氣領先指標分析</span><button class="copy-btn" onclick="copyPrompt(this)">複製提示詞</button></div>
+          <pre>請扮演具備二十年實戰經驗的總體經濟分析師。
+請幫我查詢台灣國家發展委員會公布的最新一期景氣領先指標綜合指數。
+請列出以下資訊：
+1. 該指數的最新發布月份與數值
+2. 領先指標中，各項構成子項目的最新數值與月增率變化</pre>
+        </div>
+
+        <div class="prompt-block">
+          <div class="prompt-header"><span>2-49 台灣主要產業強弱訊號輸出</span><button class="copy-btn" onclick="copyPrompt(this)">複製提示詞</button></div>
+          <pre>根據目前筆記中的資料表與來源，整理台灣主要產業最近幾個月的強弱變化。
+請用表格輸出：
+產業或品項｜外銷訂單訊號｜工業生產訊號｜批發零售餐飲訊號｜目前判斷｜需要小心的誤判</pre>
+        </div>
+
+        <div class="prompt-block">
+          <div class="prompt-header"><span>2-61 產業動能評分與反證條件</span><button class="copy-btn" onclick="copyPrompt(this)">複製提示詞</button></div>
+          <pre>請從「產業動能」的角度，為投資類別中的「{產業：化學材料業}」進行評分。
+請針對各項評估標準（創新性／持續性／投資可行性／驗證簡易性）給予 0–5 分的評分，並以一行文字說明理由。 
+請給出總分與判定（納入候選／持續調查／放棄）， 最後並列出 3 項改善方案以及 3 項反證條件。</pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- Chapter 3 -->
+    <section class="chapter-section" id="ch3">
+      <div class="chapter-header">
+        <h2 class="chapter-title">第 3 章 投資策略、風險與盲點</h2>
+        <a href="javascript:void(0)" onclick="scrollToTop()" class="chapter-top-link">↑ 回到頂部</a>
+      </div>
+      <div class="chapter-content">
+        <div class="prompt-block">
+          <div class="prompt-header"><span>3-7 投資諮商師對話式策略診斷（10 題互動）</span><button class="copy-btn" onclick="copyPrompt(this)">複製提示詞</button></div>
+          <pre>角色：投資諮商師
+
+對象：想建立個人投資原則，但還不確定自己適合哪一種投資策略的一般上班族與小資投資人。
+
+指令：你的任務是透過對話，協助使用者釐清適合自己的投資策略。
+請向使用者提出 10 個四選一形式的問題。問題請一次只提出一個，不要一次列出全部問題。每一題都要根據使用者前面的 回答調整提問方向，逐步引導使用者說出自己的投資目標、資金狀況、可投入時間、收入穩定度、可承受波動、面對虧損時的反應、研究意願、決策習慣與常見心理盲點：
+完成 10 題後，請彙整為「個人投資策略診斷結果」：
+
+1. 主策略與副策略
+主策略：
+副策略：
+說明原因，為什麼適合這個策略。請根據使用者的投資目標、資金條件、可投入時間、風險承受度與心理反應說明。
+
+2. 不建議採用的投資策略
+說明原因，例如時間不足、資金期限太短、承受不了大幅波動、容易追高、容易凹單、報酬期待與風險承受度不一致等。
+
+請用 3 點提醒使用者接下來在建立投資原則時要注意什麼。</pre>
+        </div>
+
+        <div class="prompt-block">
+          <div class="prompt-header"><span>3-20 VaR 壓力測試（機構級）</span><button class="copy-btn" onclick="copyPrompt(this)">複製提示詞</button></div>
+          <pre>角色：你是一位具備二十年資歷的機構級投資風險分析師，說話直白且注重資金安全。
+任務：請協助我執行「資產波動度與預估損失（VaR）」的壓力測試。
+
+模擬條件與步驟
+1. 假設我目前預計投入的總資金為 {請填入金額：10 萬台幣}，準備買進 {股票代碼：2330 台積電}。
+2. 請根據該標的過去的歷史波動率，推算在「常態市場（95%信心水準）」下，我抱牢這檔股票一個月，最大可能面臨的「帳面虧損金額」大約落在哪個區間 。
+3. 接著進行極端市場暴跌模擬（市場變動率設定為 2 週內下跌 25%），請計算在這種情境下我的投資部位「預期損失金額」會達到多少 。
+4. 請列出我在面臨上述兩種具體的虧損金額時，作為個人投資家應採取的具體應對選項（如：停損、加碼或抱牢），並比較各選項的優缺點 。</pre>
+        </div>
+
+        <div class="prompt-block">
+          <div class="prompt-header"><span>3-38 喬治·索羅斯反思性批判</span><button class="copy-btn" onclick="copyPrompt(this)">複製提示詞</button></div>
+          <pre>你是傳奇避險基金經理人喬治・索羅斯（George Soros），重視「市場的不完美」與「前提崩塌時的風險控制」。
+我目前非常看好 {股票代碼：友達}，請挑戰我的這個觀點。
+
+輸出要求
+1. 請指出我目前看好這檔股票的理由中，有哪些可能只是「市場的過度期待（錯誤定價）」而非真實價值？
+2. 如果支撐這家公司高報酬的「核心前提」發生崩潰，我的下檔風險（Downside Risk）有多深？
+3. 請問我一個尖銳的問題，逼迫我思考當這筆交易方向錯誤時，我該如何將損失限制在可控範圍內？</pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- Chapter 4 -->
+    <section class="chapter-section" id="ch4">
+      <div class="chapter-header">
+        <h2 class="chapter-title">第 4 章 找出候選股，建立觀察清單</h2>
+        <a href="javascript:void(0)" onclick="scrollToTop()" class="chapter-top-link">↑ 回到頂部</a>
+      </div>
+      <div class="chapter-content">
+        <div class="prompt-block">
+          <div class="prompt-header"><span>4-22 華倫·巴菲特 5 條件選股濾網</span><button class="copy-btn" onclick="copyPrompt(this)">複製提示詞</button></div>
+          <pre>您是價值投資大師華倫·巴菲特。請在當前國內股票市場中，幫我發掘出 5 個符合以下條件的個股。
+收益性：最近 3 年平均 ROE 必須在 10% 以上，並說明 ROE 是否來自本業獲利，而不是過高負債。
+獲利穩定性：最近 3 年 EPS 不能大幅衰退，若有波動，請說明原因。
+安全性：負債比率必須在 80% 以下，極度健全。
+價格合理性：PER 與 PBR 需和同業比較。且 PER 必須比同行業平均還要低 20% 以上。
+配息：為了落實股東回饋，配息殖利率必須在 3% 以上的企業。
+請將上述個股整理成表格。</pre>
+        </div>
+
+        <div class="prompt-block">
+          <div class="prompt-header"><span>4-49 AI 晶片供應鏈邏輯樹</span><button class="copy-btn" onclick="copyPrompt(this)">複製提示詞</button></div>
+          <pre>請搜尋屬於「{熱門終端產品：AI 晶片}」的台灣市場上市股票名稱及其股票代碼
+請排除只是題材沾邊、關聯性薄弱的公司
+以邏輯樹形式列出 每個環節的核心技術與代表企業</pre>
+        </div>
+
+        <div class="prompt-block">
+          <div class="prompt-header"><span>4-53 管理層重置（Management Reset）事件追蹤</span><button class="copy-btn" onclick="copyPrompt(this)">複製提示詞</button></div>
+          <pre>請執行管理層重置 Management Reset 事件追蹤。
+請搜尋過去 180 天內，台灣上市櫃公司中曾更換 CEO、董事長、總經理或核心管理層的公司，並優先篩選市值大於 10 億臺幣的標的。
+請檢查這些公司近期財報、重大訊息、法說會或新聞中，是否出現重組費用、資產減損、裁員、處分資產、關閉虧損業務、組織調整、策略轉向等訊號。
+選出 1 到  5  家最可能發生估值重評 Re-rating 的候選公司。</pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- Chapter 5 -->
+    <section class="chapter-section" id="ch5">
+      <div class="chapter-header">
+        <h2 class="chapter-title">第 5 章 基本面分析</h2>
+        <a href="javascript:void(0)" onclick="scrollToTop()" class="chapter-top-link">↑ 回到頂部</a>
+      </div>
+      <div class="chapter-content">
+        <div class="prompt-block">
+          <div class="prompt-header"><span>5-6 商業模式九宮格（Canvas）</span><button class="copy-btn" onclick="copyPrompt(this)">複製提示詞</button></div>
+          <pre>你是一位經營顧問。請針對[企業名稱：創意 (3443)]，幫我建立商業模式九宮格(Business Model Canvas) 的9個項目，並附上調查根據。</pre>
+        </div>
+
+        <div class="prompt-block">
+          <div class="prompt-header"><span>5-13 護城河五面向評分</span><button class="copy-btn" onclick="copyPrompt(this)">複製提示詞</button></div>
+          <pre>請從無形資產、轉換成本、網路效應、成本優勢、有效規模五個角度，
+分析 [企業名稱：中華電2412] 的護城河。
+每一項請給 1 到 5 分，並說明評分理由。
+請判斷這些優勢可能維持多久。
+請列出三個會削弱護城河的情境。</pre>
+        </div>
+
+        <div class="prompt-block">
+          <div class="prompt-header"><span>5-50 法說會 Q&A 經營層心理分析</span><button class="copy-btn" onclick="copyPrompt(this)">複製提示詞</button></div>
+          <pre>您是心理分析專家。請透過這份法說會問答紀錄，從經營層的發言中讀取出他們『有自信的領域』與『感到不安的領域』各3個，並引用具體的發言作為根據。</pre>
+        </div>
+
+        <div class="prompt-block">
+          <div class="prompt-header"><span>5-57 八維度產業競爭力與雷達圖</span><button class="copy-btn" onclick="copyPrompt(this)">複製提示詞</button></div>
+          <pre>角色：產業分析師
+對象：請將 [候選股：台灣大] 與其 3 家競爭對手
+指令：請透過收益性、成長性、財務健全度、營運效率、現金流品質、估值合理性、股東回饋、競爭優勢等 8 個維度進行比較，並產出可用於雷達圖的數據與投資推薦順序</pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- Chapter 6 -->
+    <section class="chapter-section" id="ch6">
+      <div class="chapter-header">
+        <h2 class="chapter-title">第 6 章 找出最佳買賣點</h2>
+        <a href="javascript:void(0)" onclick="scrollToTop()" class="chapter-top-link">↑ 回到頂部</a>
+      </div>
+      <div class="chapter-content">
+        <div class="prompt-block">
+          <div class="prompt-header"><span>6-14 Google 試算表公式</span><button class="copy-btn" onclick="copyPrompt(this)">複製提示詞</button></div>
+          <pre>查詢台積電即時股價：
+=GOOGLEFINANCE("TPE:2330", "price")
+查詢近一年歷史股價折線圖：
+=SPARKLINE(GOOGLEFINANCE("TPE:2330", "price", TODAY()-365, TODAY()))</pre>
+        </div>
+
+        <div class="prompt-block">
+          <div class="prompt-header"><span>6-28 三層級停損策略設計</span><button class="copy-btn" onclick="copyPrompt(this)">複製提示詞</button></div>
+          <pre>請根據目前支撐區設計停損策略。
+優先考慮技術面失效的位置。
+請列出
+保守停損區
+標準停損區
+積極停損區
+並說明各自適用情境。</pre>
+        </div>
+
+        <div class="prompt-block">
+          <div class="prompt-header"><span>6-50 大戶真實進駐 vs 主力倒貨誘餌判定</span><button class="copy-btn" onclick="copyPrompt(this)">複製提示詞</button></div>
+          <pre>請分析最近 20 天內，外資與法人對 [個股名稱: 世芯-KY] 的籌碼動向。
+他們是否呈現『同步大宗買超』的趨勢？同時，社群媒體上流傳著關於此個股的利多消息，請透過成交量與籌碼變化幫我判斷，這究竟是大戶真正進駐的信號，還是主力為了倒貨（出貨）給散戶而刻意製造的誘餌？</pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- Chapter 7 -->
+    <section class="chapter-section" id="ch7">
+      <div class="chapter-header">
+        <h2 class="chapter-title">第 7 章 資金管理與投資組合配置</h2>
+        <a href="javascript:void(0)" onclick="scrollToTop()" class="chapter-top-link">↑ 回到頂部</a>
+      </div>
+      <div class="chapter-content">
+        <div class="prompt-block">
+          <div class="prompt-header"><span>7-4 程式模擬多次賭局下注結果</span><button class="copy-btn" onclick="copyPrompt(this)">複製提示詞</button></div>
+          <pre>請建構一個程式來模擬多次賭局下注的結果，初始資金為 100 萬，使用者可以調整勝率、賠率、下注比例以及重複此賭局的次數。請以折線圖呈現每次下注的結果，X 軸為賭局次數；Y 軸為資金。不要有額外的複雜功能</pre>
+        </div>
+
+        <div class="prompt-block">
+          <div class="prompt-header"><span>7-11 比較「集中下注單檔」與「分散下注多檔」</span><button class="copy-btn" onclick="copyPrompt(this)">複製提示詞</button></div>
+          <pre>請建構一個程式來比較「集中下注單檔」與「分散下注多檔」的績效差異，初始資金為 100 萬，使用者可以調整勝率、賠率、同時下注的檔數以及重複賭局的次數。兩種情境使用的總資金比例相同，都等於凱利公式的最佳下注比例，差別只在於是否分散。請以折線圖呈現兩種情境的資金曲線，X 軸為賭局次數，Y 軸為資金，並在圖下方顯示兩種情境各自的平均報酬率。不要有額外的複雜功能</pre>
+        </div>
+
+        <div class="prompt-block">
+          <div class="prompt-header"><span>7-19 投組持股相關性與集體風險檢驗</span><button class="copy-btn" onclick="copyPrompt(this)">複製提示詞</button></div>
+          <pre>列出持有的股票名稱及代號，以及佔總投資資金的比例
+請根據我的投資組合，評估各標的之間的相關性，並告訴我這個組合的分散效果如何：
+我的持股比例：
+台積電 (2330)：20%
+群創 (3481)：20%
+長榮 (2603)：20%
+統一超 (2912)：15%
+0050：15%
+現金：10%
+
+請幫我：
+1. 描述各標的之間的大致相關性關係 (哪幾個容易同向波動、哪幾個相關性較低)
+2. 從產業、景氣循環敏感度、匯率影響等角度，分析這個組合在哪些市場情境下容易出現「集體下跌」的風險
+3. 這個組合的分散效果，你認為是真正有效、還是名義上分散但實際上高度相關？
+4. 如果想要降低相關性、提升分散效果，可以考慮加入哪一類標的？
+如果你不清楚股票產業或資訊的話，請先搜尋網路</pre>
+        </div>
+
+        <div class="prompt-block">
+          <div class="prompt-header"><span>7-27 投組 95%/99% 一年期 VaR 壓力測試</span><button class="copy-btn" onclick="copyPrompt(this)">複製提示詞</button></div>
+          <pre>[Portfolio 資料表]
+此為我的投資組合資料，請估算投組預期報酬，並計算 95% 與 99% 信心水準下的一年期 VaR，並用白話說明有多少機率、一年內虧損可能超過多少金額。若我的心理底線是單年最大虧損不超過 20%，請評估此組合是否符合，若不符合請給出具體的調整建議。</pre>
+        </div>
+      </div>
+    </section>
+  </div>
+
+</div>
+
+<!-- 懸浮回到頂部按鈕 -->
+<button id="backToTopBtn" class="back-to-top" onclick="scrollToTop()" title="回到頂部">
+  <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path stroke-linecap="round" stroke-linejoin="round" d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
+  </svg>
+  <span class="back-to-top-text">TOP</span>
+</button>
+
+<footer>
+  <p>全球總體經濟指標觀測站 (美/台) & 旗標圖書 F6194 服務專區鏡像</p>
+</footer>
+
+<script>
+  // 頁籤切換
+  function switchTab(tabId, btn) {
+    document.querySelectorAll('.tab-pane').forEach(el => el.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+    document.getElementById('pane-' + tabId).classList.add('active');
+    btn.classList.add('active');
+  }
+
+  // 搜尋過濾 (針對台灣總經卡片)
+  const searchInput = document.getElementById('searchInput');
+  const cards = document.querySelectorAll('#cardGrid .card');
+  if (searchInput) {
+    searchInput.addEventListener('input', (e) => {
+      const q = e.target.value.toLowerCase().trim();
+      cards.forEach(card => {
+        const text = (card.innerText + " " + card.getAttribute('data-tags')).toLowerCase();
+        card.style.display = text.includes(q) ? 'block' : 'none';
+      });
+    });
+  }
+
+  // 一鍵複製提示詞
+  function copyPrompt(btn) {
+    const pre = btn.closest('.prompt-block').querySelector('pre');
+    navigator.clipboard.writeText(pre.innerText).then(() => {
+      const orig = btn.innerText;
+      btn.innerText = '已複製！';
+      btn.style.background = '#10b981';
+      setTimeout(() => {
+        btn.innerText = orig;
+        btn.style.background = '#0284c7';
+      }, 1500);
+    });
+  }
+
+  // 平滑回到頂端
+  function scrollToTop() {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  }
+
+  // 滾動超過 250px 時自動顯現懸浮按鈕
+  window.addEventListener('scroll', () => {
+    const btn = document.getElementById('backToTopBtn');
+    if (window.scrollY > 250) {
+      btn.classList.add('show');
+    } else {
+      btn.classList.remove('show');
+    }
+  });
+</script>
+</body>
+</html>
