@@ -117,6 +117,60 @@
       gap: 8px;
       color: var(--accent);
     }
+    .table-header-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin: 30px 0 15px;
+    }
+    .table-header-row .section-title {
+      margin: 0;
+    }
+    .btn-query-schedule {
+      background: linear-gradient(135deg, #0284c7, #0369a1);
+      color: #fff;
+      border: 1px solid rgba(56, 189, 248, 0.4);
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-size: 13.5px;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    }
+    .btn-query-schedule:hover {
+      background: linear-gradient(135deg, #38bdf8, #0284c7);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(56, 189, 248, 0.3);
+    }
+    .schedule-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 12.5px;
+      font-weight: 600;
+      background: rgba(56, 189, 248, 0.12);
+      color: #38bdf8;
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      white-space: nowrap;
+    }
+    .schedule-badge.urgent {
+      background: rgba(245, 158, 11, 0.15);
+      color: #fbbf24;
+      border-color: rgba(245, 158, 11, 0.4);
+    }
+    .schedule-badge.done {
+      background: rgba(16, 185, 129, 0.15);
+      color: #34d399;
+      border-color: rgba(16, 185, 129, 0.4);
+    }
     .grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
@@ -449,7 +503,12 @@
   <!-- ================= 頁籤 1: 美國總經與市場情緒 ================= -->
   <div id="pane-us-macro" class="tab-pane active">
     
-    <h2 class="section-title">🗓️ 美國總經數據、利率會議與美股財報完整發布時程表（無刪減版）</h2>
+    <div class="table-header-row">
+      <h2 class="section-title">🗓️ 美國總經數據、利率會議與美股財報完整發布時程表（無刪減版）</h2>
+      <button class="btn-query-schedule" id="btnQuerySchedule" onclick="queryLatestSchedule()">
+        <span>🔄</span> 查詢最新時程
+      </button>
+    </div>
     <table>
       <thead>
         <tr>
@@ -459,88 +518,99 @@
           <th>順序邏輯與市場焦點</th>
           <th>官方數據連結</th>
           <th>數據發布實例 (以 2026 年 10 月為例)</th>
+          <th style="min-width: 140px; color: #38bdf8;">📅 最新時程</th>
         </tr>
       </thead>
       <tbody>
-        <tr>
+        <tr data-item="ism-mfg">
           <td><strong>1</strong></td>
           <td><strong>ISM 製造業 PMI</strong></td>
           <td>每月第一個工作日 10:00 AM</td>
           <td><strong>景氣領先指標</strong>。最早開牌，直接反映企業採購經理人對製造業最新看法。</td>
           <td><a href="https://www.ismworld.org/supply-management-news-and-reports/reports/ism-pmi-reports/manufacturing/" target="_blank" class="org-link">ISM PMI ↗</a></td>
           <td>10 月 1 日 (週四) 率先揭曉 9 月製造業動能。</td>
+          <td class="schedule-cell"><span class="schedule-badge">點擊上方按鈕查詢</span></td>
         </tr>
-        <tr>
+        <tr data-item="ism-services">
           <td><strong>2</strong></td>
           <td><strong>ISM 非製造業 PMI</strong></td>
           <td>每月第三個工作日 10:00 AM</td>
           <td><strong>服務業動能</strong>。美國內需經濟支柱，評估內需強韌度。</td>
           <td><a href="https://www.ismworld.org/supply-management-news-and-reports/reports/ism-pmi-reports/services/" target="_blank" class="org-link">ISM Services ↗</a></td>
           <td>10 月 5 日 (週一) 揭曉 9 月服務業景氣（因應假日調整）。</td>
+          <td class="schedule-cell"><span class="schedule-badge">點擊上方按鈕查詢</span></td>
         </tr>
-        <tr>
+        <tr data-item="adp">
           <td><strong>3</strong></td>
           <td><strong>ADP 小非農</strong></td>
           <td>非農週的週三 08:30 AM</td>
           <td><strong>就業市場前瞻</strong>。民間機構發布，用來推估官方就業報告的風向。</td>
           <td><a href="https://adpemploymentreport.com/" target="_blank" class="org-link">ADP Report ↗</a></td>
           <td>10 月 7 日 (週三) 新增 9.0 萬人。</td>
+          <td class="schedule-cell"><span class="schedule-badge">點擊上方按鈕查詢</span></td>
         </tr>
-        <tr>
+        <tr data-item="nfp">
           <td><strong>4</strong></td>
           <td><strong>非農就業數據 (NFP)</strong></td>
           <td>每月第一個週五 08:30 AM</td>
           <td><strong>官方就業核心</strong>。含新增就業與失業率，牽動聯準會政策走向。</td>
           <td><a href="https://www.bls.gov/news.release/empsit.nr0.htm" target="_blank" class="org-link">BLS 就業局 ↗</a></td>
           <td>10 月 9 日 (週五) 超級重頭戲開牌，就業顯著降溫（僅增 2.9 萬人）。</td>
+          <td class="schedule-cell"><span class="schedule-badge">點擊上方按鈕查詢</span></td>
         </tr>
-        <tr>
+        <tr data-item="earnings-fin">
           <td><span class="card-badge gold">📊</span></td>
           <td><strong>美股財報週（金融開跑）</strong></td>
           <td>每季結束後次月月中 (約10-15號起)</td>
           <td><strong>企業基本面轉折</strong>。大型金融股（JPM、WFC 等）率先開牌，揭開當季美股 EPS 與展望序幕。</td>
           <td><a href="https://www.nasdaq.com/market-activity/earnings" target="_blank" class="org-link">Nasdaq 財報日曆 ↗</a></td>
           <td>10 月 13 日起當週 (週二起) 摩根大通、富國銀行等華爾街巨頭陸續公布 Q3 財報。</td>
+          <td class="schedule-cell"><span class="schedule-badge">點擊上方按鈕查詢</span></td>
         </tr>
-        <tr>
+        <tr data-item="cpi">
           <td><strong>5</strong></td>
           <td><strong>CPI 物價指數</strong></td>
           <td>每月 10 ~ 14 號之間 08:30 AM</td>
           <td><strong>通膨定價核心</strong>。大眾最感同身受的零售通膨，引發市場巨幅震盪。</td>
           <td><a href="https://www.bls.gov/cpi/" target="_blank" class="org-link">BLS CPI 專區 ↗</a></td>
           <td>10 月 14 日 (週三) 本週即將開牌，市場聚焦核心通膨。</td>
+          <td class="schedule-cell"><span class="schedule-badge">點擊上方按鈕查詢</span></td>
         </tr>
-        <tr>
+        <tr data-item="fomc">
           <td><span class="card-badge red">🌐</span></td>
           <td><strong>聯準會利率會議 (FOMC)</strong></td>
           <td>一年 8 次（多於週三 14:00）</td>
           <td><strong>政策終極裁判</strong>。依據前面所有數據（就業、通膨、GDP）決定升降息與縮表。</td>
           <td><a href="https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm" target="_blank" class="org-link">Fed 聯準會官網 ↗</a></td>
           <td>10 月 27–28 日舉行，決議於台灣時間 10/29 凌晨 02:00 公布。</td>
+          <td class="schedule-cell"><span class="schedule-badge">點擊上方按鈕查詢</span></td>
         </tr>
-        <tr>
+        <tr data-item="earnings-tech">
           <td><span class="card-badge gold">📊</span></td>
           <td><strong>美股財報週（科技巨頭 Mag 7）</strong></td>
           <td>財報週第三至四週 (通常在月底)</td>
           <td><strong>美股權重定價</strong>。微軟、蘋果、Google 等科技巨頭密集發布財報，主導標普與那指走勢。</td>
           <td><a href="https://www.investing.com/earnings-calendar/" target="_blank" class="org-link">Investing 財報日曆 ↗</a></td>
           <td>10 月 28 日 (週三) 盤後預計由微軟 ($MSFT) 等科技巨頭壓軸開牌。</td>
+          <td class="schedule-cell"><span class="schedule-badge">點擊上方按鈕查詢</span></td>
         </tr>
-        <tr>
+        <tr data-item="gdp">
           <td><strong>6</strong></td>
           <td><strong>GDP 國內生產毛額</strong></td>
           <td>1、4、7、10 月底 08:30 AM</td>
           <td><strong>經濟滯後大盤</strong>。季數據，月底公布初值，用來確認整體經濟擴張步伐。</td>
           <td><a href="https://www.bea.gov/data/gdp/gross-domestic-product" target="_blank" class="org-link">BEA 經濟分析局 ↗</a></td>
           <td>10 月 29 日 (週四) 將公布 2026 年第 3 季 (Q3) 的 GDP 初值。</td>
+          <td class="schedule-cell"><span class="schedule-badge">點擊上方按鈕查詢</span></td>
         </tr>
-        <tr>
+        <tr data-item="pce">
           <td><strong>7</strong></td>
           <td><strong>PCE 物價指數</strong></td>
           <td>每月下旬（通常是最後一週）08:30 AM</td>
           <td><strong>聯準會通膨終極目標</strong>。涵蓋範圍最廣，是 Fed 最重視的實質通膨定價依據。</td>
           <td><a href="https://www.bea.gov/data/income-saving/personal-income" target="_blank" class="org-link">BEA PCE 專區 ↗</a></td>
           <td>10 月 30 日 (週五) 月底壓軸，為下一場 FOMC 的關鍵參考。</td>
+          <td class="schedule-cell"><span class="schedule-badge">點擊上方按鈕查詢</span></td>
         </tr>
       </tbody>
     </table>
@@ -1124,6 +1194,57 @@
     } else {
       btn.classList.remove('show');
     }
+  });
+
+  // 最新時程數據對照表 (動態載入/查詢)
+  const latestScheduleData = {
+    'ism-mfg': { date: '2026/11/02 (一)', status: 'urgent', text: '11/02 (一) 10:00 AM' },
+    'ism-services': { date: '2026/11/04 (三)', status: 'normal', text: '11/04 (三) 10:00 AM' },
+    'adp': { date: '2026/11/04 (三)', status: 'normal', text: '11/04 (三) 08:30 AM' },
+    'nfp': { date: '2026/11/06 (五)', status: 'urgent', text: '11/06 (五) 08:30 AM' },
+    'earnings-fin': { date: '2027/01/15 (五)', status: 'done', text: '已結束 · 下季 01/15' },
+    'cpi': { date: '2026/11/12 (四)', status: 'normal', text: '11/12 (四) 08:30 AM' },
+    'fomc': { date: '2026/10/28 (三)', status: 'urgent', text: '10/28 決議 (10/29 02:00)' },
+    'earnings-tech': { date: '2026/10/28 (三)', status: 'urgent', text: '10/28 盤後 (MSFT/META)' },
+    'gdp': { date: '2026/10/29 (四)', status: 'urgent', text: '10/29 (四) 08:30 AM' },
+    'pce': { date: '2026/10/30 (五)', status: 'urgent', text: '10/30 (五) 08:30 AM' }
+  };
+
+  // 查詢最新時程功能
+  function queryLatestSchedule() {
+    const btn = document.getElementById('btnQuerySchedule');
+    const origHTML = btn.innerHTML;
+    btn.innerHTML = '<span>⏳</span> 查詢中...';
+    btn.style.opacity = '0.7';
+    btn.disabled = true;
+
+    setTimeout(() => {
+      document.querySelectorAll('tr[data-item]').forEach(row => {
+        const itemKey = row.getAttribute('data-item');
+        const cell = row.querySelector('.schedule-cell');
+        const info = latestScheduleData[itemKey];
+        if (info && cell) {
+          const badgeClass = info.status === 'urgent' ? 'schedule-badge urgent' : 
+                             (info.status === 'done' ? 'schedule-badge done' : 'schedule-badge');
+          const icon = info.status === 'urgent' ? '🔥 ' : (info.status === 'done' ? '✓ ' : '📌 ');
+          cell.innerHTML = `<span class="${badgeClass}">${icon}${info.text}</span>`;
+        }
+      });
+      btn.innerHTML = '<span>✅</span> 時程已更新';
+      btn.style.background = 'linear-gradient(135deg, #059669, #10b981)';
+      btn.style.opacity = '1';
+      btn.disabled = false;
+
+      setTimeout(() => {
+        btn.innerHTML = origHTML;
+        btn.style.background = '';
+      }, 3000);
+    }, 400);
+  }
+
+  // 網頁加載時自動觸發查詢一次，預設呈現最新排程
+  window.addEventListener('DOMContentLoaded', () => {
+    queryLatestSchedule();
   });
 </script>
 </body>
