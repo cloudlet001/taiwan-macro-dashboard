@@ -274,6 +274,256 @@
     th { background: #172033; color: var(--accent); }
     tr:last-child td { border-bottom: none; }
 
+    /* 台灣總經節奏表 - 圖式時程導航條 (Roadmap Box) */
+    .tw-roadmap-box {
+      background: linear-gradient(135deg, rgba(15, 23, 42, 0.95), rgba(30, 41, 59, 0.85));
+      border: 1px solid rgba(56, 189, 248, 0.35);
+      border-radius: 12px;
+      padding: 16px 18px;
+      margin: 15px 0 20px 0;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    }
+    .roadmap-topbar {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 14px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid rgba(51, 65, 85, 0.6);
+    }
+    .roadmap-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .roadmap-icon {
+      font-size: 19px;
+    }
+    .roadmap-heading {
+      font-weight: 700;
+      font-size: 15.5px;
+      color: #38bdf8;
+      letter-spacing: 0.3px;
+    }
+    .roadmap-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(56, 189, 248, 0.12);
+      border: 1px solid rgba(56, 189, 248, 0.35);
+      padding: 4px 12px;
+      border-radius: 99px;
+      font-size: 12px;
+      color: #7dd3fc;
+    }
+    .pulse-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #38bdf8;
+      box-shadow: 0 0 8px #38bdf8;
+      animation: pulse-ring 2s infinite;
+    }
+    @keyframes pulse-ring {
+      0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(56, 189, 248, 0.7); }
+      70% { transform: scale(1.1); box-shadow: 0 0 0 6px rgba(56, 189, 248, 0); }
+      100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(56, 189, 248, 0); }
+    }
+    .roadmap-flow {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 12px;
+    }
+    .phase-col {
+      background: rgba(15, 23, 42, 0.6);
+      border: 1px solid rgba(51, 65, 85, 0.7);
+      border-radius: 10px;
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      position: relative;
+      transition: all 0.25s ease;
+    }
+    .phase-col:hover {
+      border-color: rgba(56, 189, 248, 0.5);
+      background: rgba(15, 23, 42, 0.85);
+      transform: translateY(-2px);
+    }
+    .phase-col.is-current-phase {
+      border-color: #38bdf8;
+      background: linear-gradient(180deg, rgba(56, 189, 248, 0.15), rgba(15, 23, 42, 0.9));
+      box-shadow: 0 0 16px rgba(56, 189, 248, 0.25);
+    }
+    .phase-col.is-current-phase::before {
+      content: '📍 本旬進行中';
+      position: absolute;
+      top: -10px;
+      right: 12px;
+      background: #0284c7;
+      color: #ffffff;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 1px 7px;
+      border-radius: 4px;
+      box-shadow: 0 2px 6px rgba(2, 132, 199, 0.4);
+    }
+    .phase-col-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      border-bottom: 1px solid rgba(51, 65, 85, 0.5);
+      padding-bottom: 6px;
+    }
+    .phase-name {
+      font-weight: 700;
+      font-size: 13px;
+      color: #f1f5f9;
+    }
+    .phase-sub {
+      font-size: 11px;
+      color: #94a3b8;
+    }
+    .phase-steps {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+    }
+    .step-badge-card {
+      background: #1e293b;
+      border: 1px solid rgba(71, 85, 105, 0.6);
+      border-radius: 7px;
+      padding: 8px 10px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .step-badge-card:hover {
+      border-color: #38bdf8;
+      background: #253349;
+      transform: scale(1.02);
+    }
+    .step-badge-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 4px;
+    }
+    .step-date-tag {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: 4px;
+      background: rgba(56, 189, 248, 0.15);
+      color: #38bdf8;
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+    }
+    .step-date-tag.highlight-mid {
+      background: rgba(245, 158, 11, 0.15);
+      color: #fbbf24;
+      border-color: rgba(245, 158, 11, 0.4);
+    }
+    .step-date-tag.tag-money {
+      background: rgba(234, 179, 8, 0.2);
+      color: #fde047;
+      border-color: rgba(234, 179, 8, 0.5);
+      font-weight: 800;
+    }
+    .step-date-tag.tag-quarter {
+      background: rgba(16, 185, 129, 0.15);
+      color: #34d399;
+      border-color: rgba(16, 185, 129, 0.4);
+    }
+    .step-org-badge {
+      font-size: 10.5px;
+      color: #94a3b8;
+    }
+    .step-info {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 2px;
+    }
+    .step-icon {
+      font-size: 13.5px;
+    }
+    .step-label {
+      font-weight: 700;
+      font-size: 12.5px;
+      color: #f8fafc;
+    }
+    .step-badge-card.highlight-money {
+      border-color: rgba(234, 179, 8, 0.55);
+      background: linear-gradient(135deg, rgba(30, 41, 59, 0.95), rgba(48, 43, 17, 0.55));
+    }
+    .step-badge-card.highlight-money:hover {
+      border-color: #facc15;
+      background: linear-gradient(135deg, rgba(30, 41, 59, 0.95), rgba(70, 62, 22, 0.75));
+    }
+    .step-memo {
+      font-size: 11px;
+      color: #94a3b8;
+      line-height: 1.35;
+    }
+    .row-highlight-anim {
+      animation: flash-highlight 2s ease;
+    }
+    @keyframes flash-highlight {
+      0% { background: rgba(56, 189, 248, 0.4); }
+      100% { background: transparent; }
+    }
+
+    /* M1B / M2 專屬解說卡片 */
+    .m1m2-info-box {
+      background: linear-gradient(135deg, #1e293b, #172033);
+      border: 1px solid rgba(234, 179, 8, 0.4);
+      border-radius: 10px;
+      padding: 16px 18px;
+      margin-top: 18px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
+    .m1m2-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+    .m1m2-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: #facc15;
+      margin: 0;
+    }
+    .m1m2-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 12px;
+      margin-top: 10px;
+    }
+    .m1m2-card {
+      background: rgba(15, 23, 42, 0.7);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 10px 14px;
+    }
+    .m1m2-card h4 {
+      margin: 0 0 4px 0;
+      font-size: 13px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .m1m2-card p {
+      margin: 0;
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
     .org-link {
       color: #38bdf8;
       text-decoration: none;
@@ -785,10 +1035,147 @@
   <!-- ================= 頁籤 2: 台灣總經觀測站 ================= -->
   <div id="pane-tw-macro" class="tab-pane">
     <div class="search-box">
-      <input type="text" id="searchInput" class="search-input" placeholder="🔍 輸入關鍵字搜尋台灣總經（例如：通膨、GDP、出口、景氣燈號、央行、利率）...">
+      <input type="text" id="searchInput" class="search-input" placeholder="🔍 輸入關鍵字搜尋台灣總經（例如：通膨、GDP、出口、外銷訂單、景氣燈號、央行、M1、M2、利率）...">
     </div>
 
     <h2 class="section-title">📅 台灣每月定期追蹤節奏表</h2>
+
+    <!-- ★★★ 紅框處：圖式發布日期追蹤導覽圖 (Visual Release Timeline & Roadmap) ★★★ -->
+    <div class="tw-roadmap-box">
+      <div class="roadmap-topbar">
+        <div class="roadmap-title">
+          <span class="roadmap-icon">🧭</span>
+          <span class="roadmap-heading">月度公布時程圖式導航 (每月 1 ~ 31 日追蹤節奏)</span>
+        </div>
+        <div class="roadmap-status" id="roadmapStatus">
+          <span class="pulse-dot"></span>
+          <span id="currentPhaseText">計算今日進程中...</span>
+        </div>
+      </div>
+
+      <div class="roadmap-flow">
+        <!-- 上旬 -->
+        <div class="phase-col phase-early" id="phase-early">
+          <div class="phase-col-header">
+            <span class="phase-name">🌱 上旬 (1 ~ 10 日)</span>
+            <span class="phase-sub">通膨與實體出貨</span>
+          </div>
+          <div class="phase-steps">
+            <div class="step-badge-card" onclick="scrollToTwRow('tw-row-cpi')">
+              <div class="step-badge-top">
+                <span class="step-date-tag">每月 5~7 日</span>
+                <span class="step-org-badge">主計總處</span>
+              </div>
+              <div class="step-info">
+                <span class="step-icon">🏷️</span>
+                <span class="step-label">GDP / CPI 物價薪資</span>
+              </div>
+              <div class="step-memo">衡量通膨壓力、實質購買力與經濟成長基石</div>
+            </div>
+
+            <div class="step-badge-card" onclick="scrollToTwRow('tw-row-export')">
+              <div class="step-badge-top">
+                <span class="step-date-tag">每月 7~9 日</span>
+                <span class="step-org-badge">財政部</span>
+              </div>
+              <div class="step-info">
+                <span class="step-icon">🚢</span>
+                <span class="step-label">海關進出口貿易</span>
+              </div>
+              <div class="step-memo">外銷實體出貨成績單（半導體/AI 資通核心）</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 中旬 -->
+        <div class="phase-col phase-mid" id="phase-mid">
+          <div class="phase-col-header">
+            <span class="phase-name">📈 中旬 (11 ~ 20 日)</span>
+            <span class="phase-sub">前瞻接單預期</span>
+          </div>
+          <div class="phase-steps">
+            <div class="step-badge-card" onclick="scrollToTwRow('tw-row-order')">
+              <div class="step-badge-top">
+                <span class="step-date-tag highlight-mid">每月 20 日</span>
+                <span class="step-org-badge">經濟部</span>
+              </div>
+              <div class="step-info">
+                <span class="step-icon">📑</span>
+                <span class="step-label">外銷訂單統計</span>
+              </div>
+              <div class="step-memo">領先海關出口 1~2 個月之景氣風向球</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 下旬 -->
+        <div class="phase-col phase-late" id="phase-late">
+          <div class="phase-col-header">
+            <span class="phase-name">🌊 下旬 (21 ~ 31 日)</span>
+            <span class="phase-sub">產能、資金活水與綜合燈號</span>
+          </div>
+          <div class="phase-steps">
+            <div class="step-badge-card" onclick="scrollToTwRow('tw-row-industry')">
+              <div class="step-badge-top">
+                <span class="step-date-tag">每月 23~24 日</span>
+                <span class="step-org-badge">經濟部</span>
+              </div>
+              <div class="step-info">
+                <span class="step-icon">🏭</span>
+                <span class="step-label">工業生產 & 批發零售</span>
+              </div>
+              <div class="step-memo">國內製造動能與民間內需消費熱度</div>
+            </div>
+
+            <div class="step-badge-card highlight-money" onclick="scrollToTwRow('tw-row-money')">
+              <div class="step-badge-top">
+                <span class="step-date-tag tag-money">每月 24~26 日</span>
+                <span class="step-org-badge" style="color:#fde047; font-weight:700;">中央銀行</span>
+              </div>
+              <div class="step-info">
+                <span class="step-icon">💰</span>
+                <span class="step-label" style="color:#fef08a;">M1B / M2 貨幣供給</span>
+              </div>
+              <div class="step-memo">股市資金活水水庫 · 聚焦黃金交叉與死亡交叉</div>
+            </div>
+
+            <div class="step-badge-card" onclick="scrollToTwRow('tw-row-signal')">
+              <div class="step-badge-top">
+                <span class="step-date-tag">每月 27 日前後</span>
+                <span class="step-org-badge">國發會</span>
+              </div>
+              <div class="step-info">
+                <span class="step-icon">🚦</span>
+                <span class="step-label">景氣對策信號 (燈號)</span>
+              </div>
+              <div class="step-memo">綜合判斷景氣階段（綠燈穩定、紅燈過熱）</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 季底 -->
+        <div class="phase-col phase-quarter" id="phase-quarter">
+          <div class="phase-col-header">
+            <span class="phase-name">🏛️ 季底壓軸</span>
+            <span class="phase-sub">3 / 6 / 9 / 12 月底</span>
+          </div>
+          <div class="phase-steps">
+            <div class="step-badge-card" onclick="scrollToTwRow('tw-row-cbc')">
+              <div class="step-badge-top">
+                <span class="step-date-tag tag-quarter">每季底 (週四)</span>
+                <span class="step-org-badge">中央銀行</span>
+              </div>
+              <div class="step-info">
+                <span class="step-icon">🏦</span>
+                <span class="step-label">央行理監事決策會議</span>
+              </div>
+              <div class="step-memo">貨幣政策基調、政策利率、存準率與信用管制</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <table>
       <thead>
         <tr>
@@ -799,44 +1186,80 @@
         </tr>
       </thead>
       <tbody>
-        <tr>
+        <tr id="tw-row-cpi">
           <td>每月 5~7 日</td>
-          <td>GDP / CPI / 失業率 / 經常性薪資</td>
+          <td><strong>GDP / CPI / 失業率 / 經常性薪資</strong></td>
           <td><a href="https://www.stat.gov.tw/News.aspx?n=2700&sms=10972" target="_blank" class="org-link">主計總處 ↗</a></td>
           <td>衡量通膨壓力、實質購買力、勞動市場與經濟成長</td>
         </tr>
-        <tr>
+        <tr id="tw-row-export">
           <td>每月 7~9 日</td>
-          <td>海關進出口貿易統計</td>
+          <td><strong>海關進出口貿易統計</strong></td>
           <td><a href="https://www.mof.gov.tw/trade" target="_blank" class="org-link">財政部 ↗</a></td>
-          <td>外銷實體出貨成績單（半導體/資通）</td>
+          <td>外銷實體出貨成績單（半導體/資通電子關鍵支柱）</td>
         </tr>
-        <tr>
+        <tr id="tw-row-order">
           <td>每月 20 日</td>
-          <td>外銷訂單統計</td>
+          <td><strong>外銷訂單統計</strong></td>
           <td><a href="https://service.moea.gov.tw/EE521/news/News.aspx" target="_blank" class="org-link">經濟部 ↗</a></td>
-          <td>領先海關出口 1~2 個月的接單預期</td>
+          <td>領先海關出口 1~2 個月的接單預期，景氣領先指標</td>
         </tr>
-        <tr>
+        <tr id="tw-row-industry">
           <td>每月 23~24 日</td>
-          <td>工業生產、批發零售</td>
+          <td><strong>工業生產、批發零售</strong></td>
           <td><a href="https://service.moea.gov.tw/EE521/news/News.aspx" target="_blank" class="org-link">經濟部 ↗</a></td>
-          <td>國內製造動能與民間內需消費</td>
+          <td>國內製造動能與民間內需消費，評估製造業復甦力道</td>
         </tr>
-        <tr>
+        <tr id="tw-row-money" style="background: rgba(234, 179, 8, 0.06);">
+          <td><span style="color: #fde047; font-weight:700;">每月 24~26 日</span></td>
+          <td><strong style="color: #fef08a;">貨幣總計數 (M1B / M2 貨幣供給)</strong></td>
+          <td><a href="https://www.cbc.gov.tw/tw/cp-517-26868-2B5C1-1.html" target="_blank" class="org-link" style="border-color: rgba(234, 179, 8, 0.5); color: #fde047;">中央銀行 ↗</a></td>
+          <td>
+            <strong>股市資金活水指標</strong>。衡量民間流動性總量與股市交易意願：
+            <div style="font-size: 12px; color: #94a3b8; margin-top: 3px;">
+              • <strong style="color: #34d399;">黃金交叉 (M1B 年增率 > M2 年增率)</strong>：資金自定期流向活期，代表散戶與游資充沛挺台股。<br>
+              • <strong style="color: #f87171;">死亡交叉 (M1B 年增率 < M2 年增率)</strong>：資金自活期移往定存避險，股市流動性動能受限。
+            </div>
+          </td>
+        </tr>
+        <tr id="tw-row-signal">
           <td>每月 27 日前後</td>
-          <td>景氣對策信號（燈號）</td>
+          <td><strong>景氣對策信號（燈號）</strong></td>
           <td><a href="https://index.ndc.gov.tw/n/zh_tw/lightscore#/" target="_blank" class="org-link">國發會 ↗</a></td>
-          <td>綜合判斷景氣階段（綠燈穩定、紅燈過熱）</td>
+          <td>綜合判斷景氣階段（綠燈穩定、紅燈過熱、黃紅燈轉折、藍燈低迷）</td>
         </tr>
-        <tr>
+        <tr id="tw-row-cbc">
           <td>每季底 (3/6/9/12月)</td>
-          <td>央行理監事會議利率決策</td>
+          <td><strong>央行理監事會議利率決策</strong></td>
           <td><a href="https://www.cbc.gov.tw/" target="_blank" class="org-link">中央銀行 ↗</a></td>
-          <td>貨幣政策基調、政策利率、信用管制</td>
+          <td>貨幣政策基調、政策利率（重貼現率）、存準率與不動產選擇性信用管制</td>
         </tr>
       </tbody>
     </table>
+
+    <!-- M1B / M2 戰術解析指南 -->
+    <div class="m1m2-info-box">
+      <div class="m1m2-header">
+        <span style="font-size: 18px;">💡</span>
+        <h3 class="m1m2-title">核心指標解讀：M1B 與 M2 貨幣供給「股市資金活水」戰術手冊</h3>
+      </div>
+      <div class="m1m2-grid">
+        <div class="m1m2-card">
+          <h4 style="color: #38bdf8;"><span>📊</span> 貨幣層級定義</h4>
+          <p><strong>M1A</strong>：通貨淨額 + 支票存款 + 活期存款。<br>
+             <strong>M1B</strong>：M1A + 活期儲蓄存款（流動性最強，為台股散戶與內資主力資金水庫）。<br>
+             <strong>M2</strong>：M1B + 定期存款 + 外幣存款（廣義貨幣，代表總體流動性）。</p>
+        </div>
+        <div class="m1m2-card">
+          <h4 style="color: #34d399;"><span>✨</span> 黃金交叉 (多頭信號)</h4>
+          <p>當 <strong>M1B 年增率 向上突破 M2 年增率</strong>，代表民眾將定存解約轉為隨時可下單的活期存款，資金動能充沛，歷史統計常伴隨加權指數發動波段多頭攻勢。</p>
+        </div>
+        <div class="m1m2-card">
+          <h4 style="color: #f87171;"><span>⚠️</span> 死亡交叉 (降溫防禦)</h4>
+          <p>當 <strong>M1B 年增率 向下跌破 M2 年增率</strong>，反映市場避險情緒升高，資金自股市流出沉澱於定存或美元資產，股市動能降溫，需留意盤勢修正或量縮震盪。</p>
+        </div>
+      </div>
+    </div>
 
     <h2 class="section-title">🏛️ 台灣官方權威機構專區</h2>
     <div class="grid" id="cardGrid">
@@ -852,10 +1275,10 @@
         <a href="https://index.ndc.gov.tw/n/zh_tw/lightscore#/" target="_blank" class="card-link">前往專區 ↗</a>
       </div>
 
-      <div class="card" data-tags="央行 中央銀行 利率 重貼現率 m1b m2 貨幣供給 外匯存底">
-        <div class="card-header"><span class="card-title">中華民國中央銀行 (CBC)</span><span class="card-badge">利率 / 貨幣</span></div>
-        <div class="card-desc">發布季度理監事會議利率決議、M1B/M2 貨幣供給成長率、外匯存底與銀行存放款利率。</div>
-        <a href="https://www.cbc.gov.tw/" target="_blank" class="card-link">前往官網 ↗</a>
+      <div class="card" data-tags="央行 中央銀行 利率 重貼現率 m1 m1a m1b m2 貨幣總計數 貨幣供給 資金活水 黃金交叉 死亡交叉 外匯存底 存準率 信用管制">
+        <div class="card-header"><span class="card-title">中華民國中央銀行 (CBC)</span><span class="card-badge gold">利率 / M1 / M2 貨幣</span></div>
+        <div class="card-desc">發布季度理監事會議利率決議、每月下旬 M1B / M2 貨幣總計數（股市資金活水指標）、外匯存底與銀行存放款利率。</div>
+        <a href="https://www.cbc.gov.tw/tw/cp-517-26868-2B5C1-1.html" target="_blank" class="card-link">前往貨幣專區 ↗</a>
       </div>
 
       <div class="card" data-tags="財政部 出口 進口 海關 電子零組件 資通 貿易">
@@ -1246,19 +1669,71 @@
     document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
     document.getElementById('pane-' + tabId).classList.add('active');
     btn.classList.add('active');
+    if (tabId === 'tw-macro') {
+      updateTwRoadmapPhase();
+    }
   }
 
-  // 搜尋過濾 (針對台灣總經卡片)
+  // 搜尋過濾 (針對台灣總經卡片與表格)
   const searchInput = document.getElementById('searchInput');
   const cards = document.querySelectorAll('#cardGrid .card');
+  const twTableRows = document.querySelectorAll('#pane-tw-macro table tbody tr');
   if (searchInput) {
     searchInput.addEventListener('input', (e) => {
       const q = e.target.value.toLowerCase().trim();
       cards.forEach(card => {
-        const text = (card.innerText + " " + card.getAttribute('data-tags')).toLowerCase();
+        const text = (card.innerText + " " + (card.getAttribute('data-tags') || '')).toLowerCase();
         card.style.display = text.includes(q) ? 'block' : 'none';
       });
+      if (twTableRows.length > 0) {
+        twTableRows.forEach(row => {
+          const rowText = row.innerText.toLowerCase();
+          row.style.display = rowText.includes(q) ? '' : 'none';
+        });
+      }
     });
+  }
+
+  // 台灣總經圖式導覽：計算當前進度與旬期
+  function updateTwRoadmapPhase() {
+    const now = new Date();
+    const day = now.getDate();
+    const month = now.getMonth() + 1;
+    let phase = '';
+    let phaseName = '';
+
+    if (day <= 10) {
+      phase = 'early';
+      phaseName = '上旬 (1 ~ 10 日)';
+    } else if (day <= 20) {
+      phase = 'mid';
+      phaseName = '中旬 (11 ~ 20 日)';
+    } else {
+      phase = 'late';
+      phaseName = '下旬 (21 ~ 31 日)';
+    }
+
+    const statusElem = document.getElementById('currentPhaseText');
+    if (statusElem) {
+      statusElem.innerText = `今日為 ${month} 月 ${day} 日 · 當前正處於「${phaseName}」階段`;
+    }
+
+    document.querySelectorAll('.phase-col').forEach(col => col.classList.remove('is-current-phase'));
+    const activeCol = document.getElementById('phase-' + phase);
+    if (activeCol) {
+      activeCol.classList.add('is-current-phase');
+    }
+  }
+
+  // 點擊圖式節點，平滑滾動並高亮表格行
+  function scrollToTwRow(rowId) {
+    const row = document.getElementById(rowId);
+    if (row) {
+      row.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      row.classList.remove('row-highlight-anim');
+      void row.offsetWidth; // 強制重繪以重啟動畫
+      row.classList.add('row-highlight-anim');
+    }
   }
 
   // 一鍵複製提示詞
@@ -1339,9 +1814,10 @@
     }, 400);
   }
 
-  // 網頁加載時自動觸發查詢一次，預設呈現最新排程
+  // 網頁加載時自動觸發查詢一次，預設呈現最新排程並計算台灣總經進程
   window.addEventListener('DOMContentLoaded', () => {
     queryLatestSchedule();
+    updateTwRoadmapPhase();
   });
 </script>
 </body>
