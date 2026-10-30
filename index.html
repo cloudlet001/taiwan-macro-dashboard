@@ -274,8 +274,8 @@
     th { background: #172033; color: var(--accent); }
     tr:last-child td { border-bottom: none; }
 
-    /* 台灣總經節奏表 - 圖式時程導航條 (Roadmap Box) */
-    .tw-roadmap-box {
+    /* 總經節奏表 - 圖式時程導航條 (Roadmap Box: 台灣 & 美國通用) */
+    .tw-roadmap-box, .us-roadmap-box {
       background: linear-gradient(135deg, rgba(15, 23, 42, 0.95), rgba(30, 41, 59, 0.85));
       border: 1px solid rgba(56, 189, 248, 0.35);
       border-radius: 12px;
@@ -463,6 +463,34 @@
     .step-badge-card.highlight-money:hover {
       border-color: #facc15;
       background: linear-gradient(135deg, rgba(30, 41, 59, 0.95), rgba(70, 62, 22, 0.75));
+    }
+    .step-badge-card.highlight-fomc {
+      border-color: rgba(239, 68, 68, 0.55);
+      background: linear-gradient(135deg, rgba(30, 41, 59, 0.95), rgba(69, 26, 26, 0.55));
+    }
+    .step-badge-card.highlight-fomc:hover {
+      border-color: #f87171;
+      background: linear-gradient(135deg, rgba(30, 41, 59, 0.95), rgba(95, 33, 33, 0.75));
+    }
+    .step-date-tag.tag-fomc {
+      background: rgba(239, 68, 68, 0.2);
+      color: #f87171;
+      border-color: rgba(239, 68, 68, 0.5);
+      font-weight: 800;
+    }
+    .step-badge-card.highlight-tech {
+      border-color: rgba(56, 189, 248, 0.55);
+      background: linear-gradient(135deg, rgba(30, 41, 59, 0.95), rgba(15, 45, 75, 0.55));
+    }
+    .step-badge-card.highlight-tech:hover {
+      border-color: #38bdf8;
+      background: linear-gradient(135deg, rgba(30, 41, 59, 0.95), rgba(20, 60, 100, 0.75));
+    }
+    .step-date-tag.tag-tech {
+      background: rgba(56, 189, 248, 0.2);
+      color: #38bdf8;
+      border-color: rgba(56, 189, 248, 0.5);
+      font-weight: 800;
     }
     .step-memo {
       font-size: 11px;
@@ -805,6 +833,179 @@
         <span>🔄</span> 查詢最新時程
       </button>
     </div>
+
+    <!-- ★★★ 美國總經發布時程圖式導航 (Visual Release Timeline & Roadmap) ★★★ -->
+    <div class="us-roadmap-box">
+      <div class="roadmap-topbar">
+        <div class="roadmap-title">
+          <span class="roadmap-icon">🧭</span>
+          <span class="roadmap-heading">美國總經與美股公布時程圖式導航 (每月 1 ~ 31 日追蹤節奏)</span>
+        </div>
+        <div class="roadmap-status" id="roadmapStatusUs">
+          <span class="pulse-dot"></span>
+          <span id="currentPhaseTextUs">計算今日進程中...</span>
+        </div>
+      </div>
+
+      <div class="roadmap-flow">
+        <!-- 上旬 -->
+        <div class="phase-col phase-early" id="us-phase-early">
+          <div class="phase-col-header">
+            <span class="phase-name">🌱 上旬 (1 ~ 10 日)</span>
+            <span class="phase-sub">景氣領先 & 就業雙重砲</span>
+          </div>
+          <div class="phase-steps">
+            <div class="step-badge-card" onclick="scrollToUsRow('us-row-ism-mfg')">
+              <div class="step-badge-top">
+                <span class="step-date-tag">每月第 1 個工作日</span>
+                <span class="step-org-badge">ISM</span>
+              </div>
+              <div class="step-info">
+                <span class="step-icon">🏭</span>
+                <span class="step-label">ISM 製造業 PMI</span>
+              </div>
+              <div class="step-memo">景氣最早開牌 · 反映製造訂單與擴張信心</div>
+            </div>
+
+            <div class="step-badge-card" onclick="scrollToUsRow('us-row-ism-services')">
+              <div class="step-badge-top">
+                <span class="step-date-tag">每月第 3 個工作日</span>
+                <span class="step-org-badge">ISM</span>
+              </div>
+              <div class="step-info">
+                <span class="step-icon">🏢</span>
+                <span class="step-label">ISM 服務業 PMI</span>
+              </div>
+              <div class="step-memo">美國 GDP 內需支柱 · 評估服務業擴張力道</div>
+            </div>
+
+            <div class="step-badge-card" onclick="scrollToUsRow('us-row-adp')">
+              <div class="step-badge-top">
+                <span class="step-date-tag">非農週三 08:30 AM</span>
+                <span class="step-org-badge">ADP</span>
+              </div>
+              <div class="step-info">
+                <span class="step-icon">👥</span>
+                <span class="step-label">ADP 小非農就業</span>
+              </div>
+              <div class="step-memo">民間就業風向球 · 預估官方就業報告</div>
+            </div>
+
+            <div class="step-badge-card" onclick="scrollToUsRow('us-row-nfp')">
+              <div class="step-badge-top">
+                <span class="step-date-tag highlight-mid">首週五 08:30 AM</span>
+                <span class="step-org-badge">BLS</span>
+              </div>
+              <div class="step-info">
+                <span class="step-icon">💼</span>
+                <span class="step-label">NFP 官方非農 & 失業率</span>
+              </div>
+              <div class="step-memo">重頭戲開牌 · 牽動 Fed 升降息決策關鍵</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 中旬 -->
+        <div class="phase-col phase-mid" id="us-phase-mid">
+          <div class="phase-col-header">
+            <span class="phase-name">📈 中旬 (11 ~ 20 日)</span>
+            <span class="phase-sub">通膨重磅 & 金融財報週</span>
+          </div>
+          <div class="phase-steps">
+            <div class="step-badge-card" onclick="scrollToUsRow('us-row-cpi')">
+              <div class="step-badge-top">
+                <span class="step-date-tag highlight-mid">每月 10 ~ 14 號</span>
+                <span class="step-org-badge">BLS</span>
+              </div>
+              <div class="step-info">
+                <span class="step-icon">🏷️</span>
+                <span class="step-label">CPI 物價指數</span>
+              </div>
+              <div class="step-memo">通膨定價核心 · 零售物價與核心通膨黏著度</div>
+            </div>
+
+            <div class="step-badge-card" onclick="scrollToUsRow('us-row-earnings-fin')">
+              <div class="step-badge-top">
+                <span class="step-date-tag tag-quarter">每季中旬 (1/4/7/10月)</span>
+                <span class="step-org-badge">華爾街巨頭</span>
+              </div>
+              <div class="step-info">
+                <span class="step-icon">🏦</span>
+                <span class="step-label">美股財報：金融開跑</span>
+              </div>
+              <div class="step-memo">JPM / WFC 率先揭曉 · 景氣信貸利差晴雨表</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 下旬 -->
+        <div class="phase-col phase-late" id="us-phase-late">
+          <div class="phase-col-header">
+            <span class="phase-name">🌊 下旬 (21 ~ 31 日)</span>
+            <span class="phase-sub">科技巨頭、GDP 與 PCE</span>
+          </div>
+          <div class="phase-steps">
+            <div class="step-badge-card highlight-tech" onclick="scrollToUsRow('us-row-earnings-tech')">
+              <div class="step-badge-top">
+                <span class="step-date-tag tag-tech">每季下旬 (1/4/7/10月)</span>
+                <span class="step-org-badge" style="color:#38bdf8; font-weight:700;">Mag 7 科技</span>
+              </div>
+              <div class="step-info">
+                <span class="step-icon">💻</span>
+                <span class="step-label">科技巨擘財報 (微軟/Google等)</span>
+              </div>
+              <div class="step-memo">美股權重定價 · AI 資本支出與雲端高成長</div>
+            </div>
+
+            <div class="step-badge-card" onclick="scrollToUsRow('us-row-gdp')">
+              <div class="step-badge-top">
+                <span class="step-date-tag">每季底 1/4/7/10 月</span>
+                <span class="step-org-badge">BEA</span>
+              </div>
+              <div class="step-info">
+                <span class="step-icon">📈</span>
+                <span class="step-label">GDP 國內生產毛額 (初值)</span>
+              </div>
+              <div class="step-memo">季增年化初值 · 驗證整體經濟軟著陸步伐</div>
+            </div>
+
+            <div class="step-badge-card" onclick="scrollToUsRow('us-row-pce')">
+              <div class="step-badge-top">
+                <span class="step-date-tag highlight-mid">每月最後週四/五</span>
+                <span class="step-org-badge">BEA</span>
+              </div>
+              <div class="step-info">
+                <span class="step-icon">🛒</span>
+                <span class="step-label">PCE 個人消費支出物價</span>
+              </div>
+              <div class="step-memo">Fed 官方最青睞通膨指標 · 影響降息路徑</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 核心裁判 -->
+        <div class="phase-col phase-quarter" id="us-phase-core">
+          <div class="phase-col-header">
+            <span class="phase-name">🌐 終極裁判</span>
+            <span class="phase-sub">一年 8 次</span>
+          </div>
+          <div class="phase-steps">
+            <div class="step-badge-card highlight-fomc" onclick="scrollToUsRow('us-row-fomc')">
+              <div class="step-badge-top">
+                <span class="step-date-tag tag-fomc">週三 14:00 (美東)</span>
+                <span class="step-org-badge" style="color:#f87171; font-weight:700;">Fed 聯準會</span>
+              </div>
+              <div class="step-info">
+                <span class="step-icon">🏛️</span>
+                <span class="step-label" style="color:#fca5a5;">聯準會利率會議 (FOMC)</span>
+              </div>
+              <div class="step-memo">政策終極裁判 · 綜合就業/通膨/GDP 裁定升降息與點陣圖</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <table>
       <thead>
         <tr>
@@ -819,7 +1020,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr data-item="fomc" style="background: rgba(239, 68, 68, 0.08); border-left: 3px solid #ef4444;">
+        <tr id="us-row-fomc" data-item="fomc" style="background: rgba(239, 68, 68, 0.08); border-left: 3px solid #ef4444;">
           <td><span class="card-badge red">🌐 核心</span></td>
           <td><strong>聯準會利率會議 (FOMC)</strong></td>
           <td>一年 8 次（多於週三 14:00）</td>
@@ -833,7 +1034,7 @@
           </td>
           <td>10 月 27–28 日舉行，決議於台灣時間 10/29 凌晨 02:00 公布。</td>
         </tr>
-        <tr data-item="cpi">
+        <tr id="us-row-cpi" data-item="cpi">
           <td><strong>1</strong></td>
           <td><strong>CPI 物價指數</strong></td>
           <td>每月 10 ~ 14 號之間 08:30 AM</td>
@@ -847,7 +1048,7 @@
           </td>
           <td>10 月 14 日 (週三) 本週即將開牌，市場聚焦核心通膨。</td>
         </tr>
-        <tr data-item="gdp">
+        <tr id="us-row-gdp" data-item="gdp">
           <td><strong>2</strong></td>
           <td><strong>GDP 國內生產毛額</strong></td>
           <td>1、4、7、10 月底 08:30 AM</td>
@@ -861,7 +1062,7 @@
           </td>
           <td>10 月 29 日 (週四) 將公布 2026 年第 3 季 (Q3) 的 GDP 初值。</td>
         </tr>
-        <tr data-item="adp">
+        <tr id="us-row-adp" data-item="adp">
           <td><strong>3</strong></td>
           <td><strong>ADP 小非農</strong></td>
           <td>非農週的週三 08:30 AM</td>
@@ -875,7 +1076,7 @@
           </td>
           <td>10 月 7 日 (週三) 新增 9.0 萬人。</td>
         </tr>
-        <tr data-item="nfp">
+        <tr id="us-row-nfp" data-item="nfp">
           <td><strong>4</strong></td>
           <td><strong>非農就業數據 (NFP)</strong></td>
           <td>每月第一個週五 08:30 AM</td>
@@ -889,7 +1090,7 @@
           </td>
           <td>10 月 9 日 (週五) 超級重頭戲開牌，就業顯著降溫（僅增 2.9 萬人）。</td>
         </tr>
-        <tr data-item="ism-mfg">
+        <tr id="us-row-ism-mfg" data-item="ism-mfg">
           <td><strong>5</strong></td>
           <td><strong>ISM 製造業 PMI</strong></td>
           <td>每月第一個工作日 10:00 AM</td>
@@ -903,7 +1104,7 @@
           </td>
           <td>10 月 1 日 (週四) 率先揭曉 9 月製造業動能。</td>
         </tr>
-        <tr data-item="ism-services">
+        <tr id="us-row-ism-services" data-item="ism-services">
           <td><strong>6</strong></td>
           <td><strong>ISM 非製造業 PMI</strong></td>
           <td>每月第三個工作日 10:00 AM</td>
@@ -917,7 +1118,7 @@
           </td>
           <td>10 月 5 日 (週一) 揭曉 9 月服務業景氣（因應假日調整）。</td>
         </tr>
-        <tr data-item="pce">
+        <tr id="us-row-pce" data-item="pce">
           <td><strong>7</strong></td>
           <td><strong>PCE 物價指數</strong></td>
           <td>每月下旬（通常是最後一週）08:30 AM</td>
@@ -931,7 +1132,7 @@
           </td>
           <td>10 月 30 日 (週五) 月底壓軸，為下一場 FOMC 的關鍵參考。</td>
         </tr>
-        <tr data-item="earnings-fin">
+        <tr id="us-row-earnings-fin" data-item="earnings-fin">
           <td><span class="card-badge gold">📊</span></td>
           <td><strong>美股財報週（金融開跑）</strong></td>
           <td>每季結束後次月(1、4、7、10)月中 (約10-15號起)</td>
@@ -945,7 +1146,7 @@
           </td>
           <td>10 月 13 日起當週 (週二起) 摩根大通、富國銀行等華爾街巨頭陸續公布 Q3 財報。</td>
         </tr>
-        <tr data-item="earnings-tech">
+        <tr id="us-row-earnings-tech" data-item="earnings-tech">
           <td><span class="card-badge gold">📊</span></td>
           <td><strong>美股財報週（科技巨頭 Mag 7）</strong></td>
           <td>財報週第三至四週 (通常在月底)</td>
@@ -1669,9 +1870,7 @@
     document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
     document.getElementById('pane-' + tabId).classList.add('active');
     btn.classList.add('active');
-    if (tabId === 'tw-macro') {
-      updateTwRoadmapPhase();
-    }
+    updateRoadmapPhases();
   }
 
   // 搜尋過濾 (針對台灣總經卡片與表格)
@@ -1694,8 +1893,8 @@
     });
   }
 
-  // 台灣總經圖式導覽：計算當前進度與旬期
-  function updateTwRoadmapPhase() {
+  // 總經圖式導覽：計算當前進度與旬期（同步更新美/台兩大頁籤）
+  function updateRoadmapPhases() {
     const now = new Date();
     const day = now.getDate();
     const month = now.getMonth() + 1;
@@ -1713,20 +1912,38 @@
       phaseName = '下旬 (21 ~ 31 日)';
     }
 
-    const statusElem = document.getElementById('currentPhaseText');
-    if (statusElem) {
-      statusElem.innerText = `今日為 ${month} 月 ${day} 日 · 當前正處於「${phaseName}」階段`;
-    }
+    const text = `今日為 ${month} 月 ${day} 日 · 當前正處於「${phaseName}」階段`;
 
-    document.querySelectorAll('.phase-col').forEach(col => col.classList.remove('is-current-phase'));
-    const activeCol = document.getElementById('phase-' + phase);
-    if (activeCol) {
-      activeCol.classList.add('is-current-phase');
+    const statusElemTw = document.getElementById('currentPhaseText');
+    if (statusElemTw) statusElemTw.innerText = text;
+
+    const statusElemUs = document.getElementById('currentPhaseTextUs');
+    if (statusElemUs) statusElemUs.innerText = text;
+
+    // 更新台灣圖式標籤
+    document.querySelectorAll('#pane-tw-macro .phase-col').forEach(col => col.classList.remove('is-current-phase'));
+    const activeColTw = document.getElementById('phase-' + phase);
+    if (activeColTw) activeColTw.classList.add('is-current-phase');
+
+    // 更新美國圖式標籤
+    document.querySelectorAll('#pane-us-macro .phase-col').forEach(col => col.classList.remove('is-current-phase'));
+    const activeColUs = document.getElementById('us-phase-' + phase);
+    if (activeColUs) activeColUs.classList.add('is-current-phase');
+  }
+
+  // 點擊台灣圖式節點，平滑滾動並高亮表格行
+  function scrollToTwRow(rowId) {
+    const row = document.getElementById(rowId);
+    if (row) {
+      row.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      row.classList.remove('row-highlight-anim');
+      void row.offsetWidth; // 強制重繪以重啟動畫
+      row.classList.add('row-highlight-anim');
     }
   }
 
-  // 點擊圖式節點，平滑滾動並高亮表格行
-  function scrollToTwRow(rowId) {
+  // 點擊美國圖式節點，平滑滾動並高亮表格行
+  function scrollToUsRow(rowId) {
     const row = document.getElementById(rowId);
     if (row) {
       row.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -1814,10 +2031,10 @@
     }, 400);
   }
 
-  // 網頁加載時自動觸發查詢一次，預設呈現最新排程並計算台灣總經進程
+  // 網頁加載時自動觸發查詢一次，預設呈現最新排程並計算美/台總經進程
   window.addEventListener('DOMContentLoaded', () => {
     queryLatestSchedule();
-    updateTwRoadmapPhase();
+    updateRoadmapPhases();
   });
 </script>
 </body>
