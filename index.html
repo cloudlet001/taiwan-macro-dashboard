@@ -797,12 +797,250 @@
       border-color: var(--accent);
       background: #1e293b;
     }
+  
+    /* 頂部版本切換按鈕 */
+    .header-lite-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 3px 12px;
+      border-radius: 9999px;
+      font-size: 12px;
+      font-weight: 600;
+      margin-bottom: 10px;
+      background: rgba(56, 189, 248, 0.15);
+      border: 1px solid #0284c7;
+      color: #38bdf8;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+    .header-lite-btn:hover {
+      background: #0284c7;
+      color: #ffffff;
+      transform: translateY(-1px);
+    }
+    .version-switch-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      border-radius: 9999px;
+      font-size: 13px;
+      font-weight: 700;
+      color: #38bdf8;
+      background: rgba(56, 189, 248, 0.12);
+      border: 1px solid rgba(56, 189, 248, 0.35);
+      text-decoration: none;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+    }
+    .version-switch-link:hover {
+      background: #0284c7;
+      color: #ffffff;
+      border-color: #38bdf8;
+      transform: translateY(-1px);
+      box-shadow: 0 3px 10px rgba(56, 189, 248, 0.3);
+    }
+
+    /* ================= 頁籤 4: 脆弱、強韌、反脆弱商品對照表 ================= */
+    .antifragile-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 24px;
+      margin-top: 10px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+    }
+    .antifragile-header {
+      text-align: center;
+      margin-bottom: 24px;
+      padding-bottom: 18px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .antifragile-tag {
+      display: inline-block;
+      background: rgba(16, 185, 129, 0.15);
+      color: #34d399;
+      border: 1px solid rgba(16, 185, 129, 0.4);
+      padding: 4px 14px;
+      border-radius: 9999px;
+      font-size: 12.5px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      margin-bottom: 10px;
+    }
+    .antifragile-title {
+      font-size: 22px;
+      font-weight: 800;
+      color: #f8fafc;
+      margin: 0 0 10px 0;
+    }
+    .antifragile-intro {
+      font-size: 14px;
+      color: #94a3b8;
+      max-width: 860px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+    .antifragile-table-wrapper {
+      overflow-x: auto;
+      margin: 20px 0;
+      border-radius: 10px;
+      border: 1px solid #334155;
+    }
+    table.antifragile-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 0;
+      font-size: 13.5px;
+      line-height: 1.55;
+    }
+    table.antifragile-table th, table.antifragile-table td {
+      border: 1px solid #334155;
+      padding: 12px 14px;
+      vertical-align: top;
+    }
+    table.antifragile-table th {
+      color: #ffffff;
+      text-align: center;
+      font-size: 14.5px;
+      font-weight: 700;
+      vertical-align: middle;
+      padding: 12px;
+    }
+    th.af-c0 { background: #1e293b; width: 14%; color: #94a3b8; }
+    th.af-c1 { background: #991b1b; } /* 脆弱 紅 */
+    th.af-c2 { background: #1e40af; } /* 強韌 藍 */
+    th.af-c3 { background: #065f46; } /* 反脆弱 綠 */
+
+    td.af-lab {
+      background: #1e293b;
+      font-weight: 700;
+      color: #cbd5e1;
+      text-align: center;
+      vertical-align: middle;
+    }
+    td.af-a {
+      background: rgba(153, 27, 27, 0.12);
+      color: #fecaca;
+    }
+    td.af-b {
+      background: rgba(30, 64, 175, 0.12);
+      color: #bfdbfe;
+    }
+    td.af-c {
+      background: rgba(6, 95, 70, 0.16);
+      color: #a7f3d0;
+    }
+    td.af-a b { color: #f87171; }
+    td.af-b b { color: #60a5fa; }
+    td.af-c b { color: #34d399; }
+    .af-it {
+      margin-bottom: 8px;
+      padding-bottom: 6px;
+      border-bottom: 1px dashed rgba(255, 255, 255, 0.08);
+    }
+    .af-it:last-child {
+      margin-bottom: 0;
+      padding-bottom: 0;
+      border-bottom: none;
+    }
+
+    /* 核心配置總結 */
+    .antifragile-sum {
+      margin-top: 28px;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .sum-title {
+      font-size: 17px;
+      font-weight: 700;
+      color: #facc15;
+      margin: 0 0 14px 0;
+    }
+    .sum-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 14px;
+    }
+    .sum-card {
+      border-radius: 10px;
+      padding: 16px 18px;
+      line-height: 1.6;
+    }
+    .sum-card h4 {
+      margin: 0 0 6px 0;
+      font-size: 14.5px;
+      font-weight: 700;
+    }
+    .sum-card p {
+      margin: 0;
+      font-size: 13px;
+    }
+    .sum-card.red-card {
+      background: rgba(153, 27, 27, 0.18);
+      border: 1px solid rgba(239, 68, 68, 0.35);
+      color: #fca5a5;
+    }
+    .sum-card.red-card h4 { color: #f87171; }
+    .sum-card.blue-card {
+      background: rgba(30, 64, 175, 0.18);
+      border: 1px solid rgba(59, 130, 246, 0.35);
+      color: #93c5fd;
+    }
+    .sum-card.blue-card h4 { color: #60a5fa; }
+    .sum-card.green-card {
+      background: rgba(6, 95, 70, 0.22);
+      border: 1px solid rgba(16, 185, 129, 0.4);
+      color: #6ee7b7;
+    }
+    .sum-card.green-card h4 { color: #34d399; }
+    .sum-card.green-card strong { color: #a7f3d0; }
+
+    /* 圖表圖片展示區 */
+    .antifragile-chart-box {
+      margin-top: 30px;
+      text-align: center;
+      background: #0f172a;
+      border: 1px solid #334155;
+      border-radius: 12px;
+      padding: 20px;
+    }
+    .chart-box-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: #38bdf8;
+      margin: 0 0 4px 0;
+    }
+    .chart-box-sub {
+      font-size: 13px;
+      color: #94a3b8;
+      margin: 0 0 16px 0;
+    }
+    .chart-img-container {
+      background: #ffffff;
+      border-radius: 8px;
+      padding: 14px;
+      display: inline-block;
+      max-width: 100%;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+    }
+    .antifragile-img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 4px;
+    }
+
   </style>
 </head>
 <body>
 
 <header>
-  <div class="header-badge">全球總體經濟 (美/台) & AI 投資全攻略</div>
+  <div style="display: flex; justify-content: center; align-items: center; gap: 10px; flex-wrap: wrap;">
+    <div class="header-badge">全球總體經濟 (美/台) & AI 投資全攻略</div>
+    <a href="lite.html" class="header-lite-btn" title="切換至上一個版本 (精簡無圖式版)">⚡ 精簡版 ↗</a>
+  </div>
   <h1>🌐 全球總體經濟指標觀測站</h1>
   <p class="sub">整合美國核心總經、FOMC、美股財報週、三大市場情緒指標、台灣總經及旗標 F6194 提示詞庫</p>
 </header>
@@ -819,6 +1057,14 @@
     <button class="tab-btn" onclick="switchTab('f6194', this)">
       <span>📚</span> F6194 服務專區 (全書提示詞庫)
     </button>
+    <button class="tab-btn" onclick="switchTab('antifragile', this)">
+      <span>🛡️</span> 脆弱 / 強韌 / 反脆弱商品對照
+    </button>
+    <div style="margin-left: auto; display: flex; align-items: center; padding-left: 10px;">
+      <a href="lite.html" class="version-switch-link" title="切換至上一個版本（精簡表格版）">
+        <span>⚡</span> 切換至精簡版
+      </a>
+    </div>
   </div>
 </div>
 
@@ -1847,6 +2093,105 @@
         </div>
       </div>
     </section>
+  </div>
+
+
+  <!-- ================= 頁籤 4: 脆弱、強韌、反脆弱商品對照表 ================= -->
+  <div id="pane-antifragile" class="tab-pane">
+    <div class="antifragile-card">
+      <div class="antifragile-header">
+        <div class="antifragile-tag">Nassim Nicholas Taleb 投資哲學體系</div>
+        <h2 class="antifragile-title">🛡️ 脆弱、強韌、反脆弱策略之市場對應商品對照表</h2>
+        <p class="antifragile-intro">根據塔勒布（Nassim Nicholas Taleb）的思想體系與來源內容，市場上的金融工具依照其損益結構（凹性 vs. 平坦 vs. 凸性），對應到脆弱、強韌與反脆弱三種策略的具體商品如下表所示：</p>
+      </div>
+
+      <div class="antifragile-table-wrapper">
+        <table class="antifragile-table">
+          <thead>
+            <tr>
+              <th class="af-c0">策略維度</th>
+              <th class="af-c1">1. 強大但脆弱策略（Fragile）</th>
+              <th class="af-c2">2. 強韌 / 抗風險策略（Robust）</th>
+              <th class="af-c3">3. 反脆弱策略（Antifragile）</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="af-lab">損益結構本質</td>
+              <td class="af-a"><b>凹性結構（Concave）</b><br>收益有上限，損失無底線（平時微利，遇災難粉碎）</td>
+              <td class="af-b"><b>平坦 / 線性結構（Flat）</b><br>不隨外部波動大幅變化（維持原狀、保本減損）</td>
+              <td class="af-c"><b>凸性非對稱結構（Convex）</b><br>下行損失受限且封頂，上行收益無限延伸</td>
+            </tr>
+            <tr>
+              <td class="af-lab">市場對應的主要商品標的</td>
+              <td class="af-a">
+                <div class="af-it"><b>1. 裸賣期權（Selling Options）：</b>特別是裸賣虛值看跌期權（Short OTM Put）</div>
+                <div class="af-it"><b>2. 高倍槓桿套利工具：</b>高槓桿外匯保證金、槓桿債券套利（如 LTCM 策略）</div>
+                <div class="af-it"><b>3. 高收益信用債 / 垃圾債（Junk Bonds）：</b>賺微薄票息，承擔違約本金全損風險</div>
+                <div class="af-it"><b>4. 中庸型混合資產：</b>未做極端保底的平衡型基金、非保本浮動理財、二線房產</div>
+              </td>
+              <td class="af-b">
+                <div class="af-it"><b>1. 短期政府國債（Treasury Bills）：</b>具有國家信用背書的超短期無風險資產</div>
+                <div class="af-it"><b>2. 銀行大額保本存單 / 貨幣市場基金：</b>提供極佳流動性與確定利息</div>
+                <div class="af-it"><b>3. 實體黃金（Physical Gold）：</b>歷經數千年林迪效應檢驗、對沖惡性通脹與危機的硬通貨</div>
+                <div class="af-it"><b>4. 寬基市值型 ETF（如 S&amp;P 500、0050）：</b>全額持倉、無槓桿長期定投（抗單一破產風險，隨大盤修復）</div>
+              </td>
+              <td class="af-c">
+                <div class="af-it"><b>1. 買入深度虛值看跌期權（Long OTM Put）：</b>低成本大盤指數期權，極端暴跌時暴賺數十至百倍</div>
+                <div class="af-it"><b>2. 買入地緣商品看漲期權（Long OTM Call）：</b>原油（USO）、黃金（GLD）期權，對沖衝突與通脹</div>
+                <div class="af-it"><b>3. 優質小盤成長股 / 科技龍頭長天期期權（LEAPs Call）：</b>捕捉科技變革（如 AI）的指數級爆發</div>
+                <div class="af-it"><b>4. 黑天鵝正相關 ETF / 軍工 ETF：</b>地緣衝突爆發時具備脈衝式上漲動能的行業標的</div>
+                <div class="af-it"><b>5. 天使輪 / 早期創業項目股權：</b>下行僅虧本金，上行享受百倍回報</div>
+              </td>
+            </tr>
+            <tr>
+              <td class="af-lab">平日低波動時的表現</td>
+              <td class="af-a">每天/每月穩定賺取微薄利息或權利金，製造安全感幻覺</td>
+              <td class="af-b">獲取固定無風險利息或大盤平均收益，資產平穩波動</td>
+              <td class="af-c">僅消耗極小權利金或試錯成本（由左端國債利息補貼，本金零折損）</td>
+            </tr>
+            <tr>
+              <td class="af-lab">黑天鵝極端衝擊時的表現</td>
+              <td class="af-a">斷崖式爆倉歸零，甚至產生穿倉負債風險</td>
+              <td class="af-b">本金安全無虞，或在承受市場回撤後等待均值回歸，無法反向獲利</td>
+              <td class="af-c">價值爆發數十倍至百倍，將全市場的動盪轉化為巨額超額利潤</td>
+            </tr>
+            <tr>
+              <td class="af-lab">經典代表角色 / 形象</td>
+              <td class="af-a">感恩節火雞、長期資本管理公司（LTCM）</td>
+              <td class="af-b">塑膠杯、彈簧（受壓變形但能彈回原狀）</td>
+              <td class="af-c">乒乓球、逆風之火（外力衝擊越大跳得越高、風越大燒得越旺）</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="antifragile-sum">
+        <h3 class="sum-title">💡 核心配置總結</h3>
+        <div class="sum-grid">
+          <div class="sum-card red-card">
+            <h4>● 脆弱商品的陷阱</h4>
+            <p>表面上「勝率極高、波動極小」，實則是拿 100% 的本金暴露在不可控的尾部黑天鵝風險下去換取每年微薄的利息。</p>
+          </div>
+          <div class="sum-card blue-card">
+            <h4>● 強韌商品的價值</h4>
+            <p>作為家庭與資產的壓艙石與防守底牌，保證你在任何極端市況下都能體面存活、永遠不下牌桌。</p>
+          </div>
+          <div class="sum-card green-card">
+            <h4>● 反脆弱商品的用法（槓鈴策略）</h4>
+            <p>絕不能單獨全倉買入，而是在<strong>「槓鈴策略」</strong>架構下，用 <strong>80%–90% 的強韌商品</strong>（如國債）產生的無風險利息，去採購 <strong>10%–20% 的反脆弱商品</strong>（如深度虛值期權），從而實現「平日零本金折損、亂世反向暴賺」的凸性飛輪。</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="antifragile-chart-box">
+        <h3 class="chart-box-title">📊 策略損益結構視覺化曲線圖</h3>
+        <p class="chart-box-sub">三種策略損益曲線 vs. 外部市況 / 黑天鵝發生機率分佈 (V3)</p>
+        <div class="chart-img-container">
+          <img src="antifragile_chart.png" alt="三種策略損益曲線 vs. 外部市況/黑天鵝發生機率分佈 (V3)" class="antifragile-img" loading="lazy">
+        </div>
+      </div>
+    </div>
   </div>
 
 </div>
